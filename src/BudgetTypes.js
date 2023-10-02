@@ -6,21 +6,25 @@ const budgetTypes = [
     key: "bills",
   },
   {
+    title: "Commmute",
+    key: "commute",
+  },
+  {
+    title: "Eating out",
+    key: "eatingout",
+  },
+  {
     title: "Groceries",
     key: "groceries",
-  },
-  {
-    title: "Shopping",
-    key: "shopping",
-  },
-  {
-    title: "Commmute & outside food",
-    key: "grab",
   },
   {
     title: "Health",
     key: "health",
   },
+  {
+    title: "Shopping",
+    key: "shopping",
+  }
 ];
 
 export default function BudgetTypes(props) {
