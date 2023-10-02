@@ -1,39 +1,41 @@
 import { db } from "./firebase";
-import { onValue, ref, set, child, get } from "firebase/database";
+import { ref, set, child, get } from "firebase/database";
 
 const DEFAULT_BUDGET_TEMPLATE = {
-  "bills": {
-    "budget": 150
+  bills: {
+    budget: 150,
   },
-  "commute": {
-    "budget": 60
+  commute: {
+    budget: 60,
   },
-  "eatingout": {
-    "budget": 120
+  eatingout: {
+    budget: 120,
   },
-  "groceries": {
-    "budget": 500
+  groceries: {
+    budget: 500,
   },
-  "health": {
-    "budget": 200
+  health: {
+    budget: 200,
   },
-  "shopping": {
-    "budget": 100
-  }
+  shopping: {
+    budget: 100,
+  },
 };
 
 export function getBudgets(uid, set) {
-  if(uid) {
+  if (uid) {
     const dbRef = ref(db);
-    get(child(dbRef, `budgetInstances/${uid}`)).then((snapshot) => {
-      if (snapshot.exists()) {
-        set(snapshot.val());
-      } else {
-        console.log("No data available");
-      }
-    }).catch((error) => {
-      console.error(error);
-    });
+    get(child(dbRef, `budgetInstances/${uid}`))
+      .then((snapshot) => {
+        if (snapshot.exists()) {
+          set(snapshot.val());
+        } else {
+          console.log("No data available");
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   }
 }
 
@@ -42,7 +44,7 @@ export function updateCurrent(budget, uid, newValue) {
 }
 
 export function resetMonth(uid) {
-  if(uid) {
+  if (uid) {
     const dbRef = ref(db);
     get(child(dbRef, `budgetTemplates/${uid}`)).then((snapshot) => {
       let templateData;
@@ -54,5 +56,5 @@ export function resetMonth(uid) {
       console.log("templateData", templateData);
       set(ref(db, `budgetInstances/${uid}`), templateData);
     });
-  }  
+  }
 }

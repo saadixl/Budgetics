@@ -24,7 +24,7 @@ const budgetTypes = [
   {
     title: "Shopping",
     key: "shopping",
-  }
+  },
 ];
 
 export default function BudgetTypes(props) {
