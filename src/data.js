@@ -42,14 +42,17 @@ export function updateCurrent(budget, uid, newValue) {
 }
 
 export function resetMonth(uid) {
-  const query = ref(db, `budgetTemplates/${uid}`);
-  return onValue(query, (snapshot) => {
-    let templateData;
-    if (snapshot.exists()) {
-      templateData = snapshot.val();
-    } else {
-      templateData = DEFAULT_BUDGET_TEMPLATE;
-    }
-    set(ref(db, `budgetInstances/${uid}`), templateData);
-  });
+  if(uid) {
+    const dbRef = ref(db);
+    get(child(dbRef, `budgetTemplates/${uid}`)).then((snapshot) => {
+      let templateData;
+      if (snapshot.exists()) {
+        templateData = snapshot.val();
+      } else {
+        templateData = DEFAULT_BUDGET_TEMPLATE;
+      }
+      console.log("templateData", templateData);
+      set(ref(db, `budgetInstances/${uid}`), templateData);
+    });
+  }  
 }
