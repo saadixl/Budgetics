@@ -1,5 +1,5 @@
 import { db } from "./firebase";
-import { onValue, ref, set } from "firebase/database";
+import { onValue, ref, set, child, get } from "firebase/database";
 
 const DEFAULT_BUDGET_TEMPLATE = {
   "bills": {
@@ -23,13 +23,18 @@ const DEFAULT_BUDGET_TEMPLATE = {
 };
 
 export function getBudgets(uid, set) {
-  const query = ref(db, `budgetInstances/${uid}`);
-  return onValue(query, (snapshot) => {
-    const data = snapshot.val();
-    if (snapshot.exists()) {
-      set(data);
-    }
-  });
+  if(uid) {
+    const dbRef = ref(db);
+    get(child(dbRef, `budgetInstances/${uid}`)).then((snapshot) => {
+      if (snapshot.exists()) {
+        set(snapshot.val());
+      } else {
+        console.log("No data available");
+      }
+    }).catch((error) => {
+      console.error(error);
+    });
+  }
 }
 
 export function updateCurrent(budget, uid, newValue) {

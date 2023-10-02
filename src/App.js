@@ -28,7 +28,7 @@ function App() {
   const [budgetTypes, setBudgetTypes] = useState({});
   const [amount, setAmount] = useState(0);
   const [currentUser, setCurrentUser] = useState();
-  const [currentUid, setCurrentUid] = useState("test-user-id");
+  const [currentUid, setCurrentUid] = useState();
 
   const cleanUpOldData = () => {
     setBudgetTypes({});
