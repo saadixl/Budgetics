@@ -122,7 +122,7 @@ function App() {
             onChange={handleAmountChange}
           />
         </Col>
-        <Col xs={12}>
+        <Col xs={6}>
           <div className="d-grid gap-2">
             <Button
               variant="primary"
@@ -133,7 +133,7 @@ function App() {
             </Button>
           </div>
         </Col>
-        <Col xs={12}>
+        <Col xs={6}>
           <div className="d-grid gap-2">
             <Button variant="warning" size="lg" onClick={handleResetMonth}>
               Reset month
