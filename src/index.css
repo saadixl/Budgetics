@@ -5,6 +5,16 @@ body {
   font-family: "Roboto", sans-serif;
 }
 
+.header-on-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 290px;
+  width: 100%;
+  background-color: #0d703f;
+  z-index: -10;
+}
+
 [data-bs-theme="dark"] {
   --bs-body-bg: #111;
 }
@@ -50,6 +60,10 @@ body {
   min-height: 105.5px;
   background: transparent;
   border: none;
+  margin-bottom: 10px;
+}
+
+.budget-type-wrapper {
   margin-bottom: 30px;
 }
 
@@ -69,7 +83,7 @@ body {
 }
 
 .header {
-  margin-bottom: 30px;
+  margin-bottom: 15px;
   font-weight: 100;
 }
 
@@ -78,11 +92,12 @@ body {
 }
 
 .header-img {
-  border-radius: 50%;
+  border-radius: 30%;
   width: 50px;
 }
 
 .welcome-back-text {
+  margin-top: 5px;
   font-size: 12px;
   letter-spacing: 1px;
   color: #ccc;
@@ -95,9 +110,8 @@ body {
 }
 
 .signout-out-icon {
-  margin-left: 20px;
   margin-top: 10px;
-  font-size: 25px;
+  font-size: 15px;
   cursor: pointer;
 }
 

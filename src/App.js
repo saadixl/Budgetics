@@ -78,6 +78,7 @@ function App() {
   const { budget = 0, current = 0 } = budgetTypes[selectedBudgetType] || {};
   return (
     <Container>
+      <div className="header-on-background"></div>
       <Row>
         <Header
           currentUser={currentUser}
@@ -91,7 +92,7 @@ function App() {
             title={`${getBudgetTitle(selectedBudgetType)} balance`}
           />
         </Col>
-        <Col xs={12}>
+        <Col className="budget-type-wrapper" xs={12}>
           <BudgetTypes setSelectedBudgetType={setSelectedBudgetType} />
         </Col>
         <Col xs={6}>
