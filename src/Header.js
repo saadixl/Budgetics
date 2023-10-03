@@ -15,15 +15,19 @@ export default function Header(props) {
     return (
       <Col xs={12} className="header">
         <Row>
+          <Col xs={2}>
+            <img alt="Profile" className="header-img" src={photoURL} />
+          </Col>
           <Col xs={8}>
-            <p>
+            <p className="welcome-back-text">
               Welcome back
               <br />
-              {displayName}
+              <span className="name">
+                {displayName}
+              </span>
             </p>
           </Col>
-          <Col className="header-right" xs={4}>
-            <img alt="Profile" className="header-img" src={photoURL} />
+          <Col className="header-right" xs={2}>
             <i
               onClick={handleSignoutClick}
               className="fa-solid fa-right-from-bracket signout-out-icon"

@@ -117,6 +117,7 @@ function App() {
         <Col xs={6}>
           <div className="d-grid gap-2">
             <Button
+              className="action-button"
               variant="primary"
               size="lg"
               onClick={handleTrackExpenseClick}
@@ -127,7 +128,7 @@ function App() {
         </Col>
         <Col xs={6}>
           <div className="d-grid gap-2">
-            <Button variant="warning" size="lg" onClick={handleResetMonth}>
+            <Button className="action-button" variant="warning" size="lg" onClick={handleResetMonth}>
               Reset month
             </Button>
           </div>
