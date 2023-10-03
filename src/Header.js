@@ -23,7 +23,7 @@ export default function Header(props) {
             </p>
           </Col>
           <Col className="header-right" xs={4}>
-            <img className="header-img" src={photoURL} />
+            <img alt="Profile" className="header-img" src={photoURL} />
             <i
               onClick={handleSignoutClick}
               className="fa-solid fa-right-from-bracket signout-out-icon"
