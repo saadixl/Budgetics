@@ -3,25 +3,14 @@ import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import Card from "react-bootstrap/Card";
 import Form from "react-bootstrap/Form";
 
 import Header from "./Header";
 import BudgetTypes from "./BudgetTypes";
+import BalanceCard from "./BalanceCard";
 import { getBudgets, updateCurrent, resetMonth } from "./data";
 import { signInWithGoogle } from "./auth";
 
-function BalanceCard(props) {
-  const { amount, title } = props;
-  return (
-    <Card data-bs-theme="dark" className="balance-card">
-      <Card.Body>
-        <Card.Title>{amount}</Card.Title>
-        <Card.Text className="small">{title}</Card.Text>
-      </Card.Body>
-    </Card>
-  );
-}
 
 function App() {
   const [selectedBudgetType, setSelectedBudgetType] = useState("");
