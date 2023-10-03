@@ -9,6 +9,12 @@ body {
   --bs-body-bg: #111;
 }
 
+.money-green {
+  background-color: #0d703f !important;
+  border-color: #0d703f !important;
+  outline-color: #0d703f !important;
+}
+
 .balance-card,
 .form-select,
 .form-control,
@@ -16,6 +22,11 @@ body {
   margin-bottom: 20px;
   border-radius: 15px;
   font-size: 16px;
+}
+
+.form-select {
+  border: none !important;
+  outline: none !important;
 }
 
 .balance-card {

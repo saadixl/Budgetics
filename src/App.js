@@ -117,10 +117,10 @@ function App() {
             onChange={handleAmountChange}
           />
         </Col>
-        <Col xs={7}>
+        <Col xs={12}>
           <div className="d-grid gap-2">
             <Button
-              className="action-button"
+              className="action-button money-green"
               variant="primary"
               size="lg"
               onClick={handleTrackExpenseClick}
@@ -129,12 +129,12 @@ function App() {
             </Button>
           </div>
         </Col>
-        <Col xs={5}>
+        <Col xs={{ span: 6, offset: 3 }}>
           <div className="d-grid gap-2">
             <Button
               className="action-button"
-              variant="warning"
-              size="lg"
+              variant="secondary"
+              size="sm"
               onClick={handleResetMonth}
             >
               Reset month
