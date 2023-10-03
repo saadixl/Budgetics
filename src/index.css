@@ -40,3 +40,20 @@ body {
   font-size: 25px;
   cursor: pointer;
 }
+
+.editable-card-wrapper {
+  position: relative;
+}
+
+.editable-card-wrapper .edit-action-btn {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  cursor: pointer;
+  font-size: 10px;
+  font-weight: bold;
+}
+
+.editable-card-wrapper .edit-action-btn:hover {
+  text-decoration: underline;
+}

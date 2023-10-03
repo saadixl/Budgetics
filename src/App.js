@@ -7,7 +7,7 @@ import Form from "react-bootstrap/Form";
 
 import Header from "./Header";
 import BudgetTypes from "./BudgetTypes";
-import BalanceCard from "./BalanceCard";
+import BalanceCard, { EditableCard } from "./BalanceCard";
 import { getBudgets, updateCurrent, resetMonth } from "./data";
 import { signInWithGoogle } from "./auth";
 
@@ -90,7 +90,7 @@ function App() {
           <BudgetTypes setSelectedBudgetType={setSelectedBudgetType} />
         </Col>
         <Col xs={12}>
-          <BalanceCard amount={budget} title="Budget" />
+          <EditableCard amount={budget} title="Budget" />
         </Col>
         <Col xs={6}>
           <BalanceCard amount={current} title="Current" />
