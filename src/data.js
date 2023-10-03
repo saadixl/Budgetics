@@ -38,6 +38,13 @@ export function updateCurrent(budget, uid, newValue) {
   set(ref(db, `budgetInstances/${uid}/${budget}/current`), newValue);
 }
 
+export function updateBudget(budget, uid, newValue) {
+  const value = parseFloat(newValue);
+  const budgetPath = `${uid}/${budget}/budget`;
+  set(ref(db, `budgetInstances/${budgetPath}`), value);
+  set(ref(db, `budgetTemplates/${budgetPath}`), value);
+}
+
 export function resetMonth(uid) {
   if (uid) {
     const dbRef = ref(db);
@@ -48,7 +55,6 @@ export function resetMonth(uid) {
       } else {
         templateData = DEFAULT_BUDGET_TEMPLATE;
       }
-      console.log("templateData", templateData);
       set(ref(db, `budgetInstances/${uid}`), templateData);
     });
   }

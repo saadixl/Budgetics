@@ -8,7 +8,7 @@ import Form from "react-bootstrap/Form";
 import Header from "./Header";
 import BudgetTypes from "./BudgetTypes";
 import BalanceCard, { EditableCard } from "./BalanceCard";
-import { getBudgets, updateCurrent, resetMonth } from "./data";
+import { getBudgets, updateCurrent, resetMonth, updateBudget } from "./data";
 import { signInWithGoogle } from "./auth";
 
 function App() {
@@ -75,8 +75,6 @@ function App() {
     signInWithGoogle(setCurrentUser);
   };
 
-  console.log("currentUser", currentUser);
-
   const { budget = 0, current = 0 } = budgetTypes[selectedBudgetType] || {};
   return (
     <Container>
@@ -90,7 +88,13 @@ function App() {
           <BudgetTypes setSelectedBudgetType={setSelectedBudgetType} />
         </Col>
         <Col xs={12}>
-          <EditableCard amount={budget} title="Budget" />
+          <EditableCard
+            uid={currentUid}
+            amount={budget}
+            title="Budget"
+            selectedBudgetType={selectedBudgetType}
+            editOperation={updateBudget}
+          />
         </Col>
         <Col xs={6}>
           <BalanceCard amount={current} title="Current" />

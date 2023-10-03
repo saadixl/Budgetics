@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Card from "react-bootstrap/Card";
 import Form from "react-bootstrap/Form";
 
@@ -15,9 +15,17 @@ export default function BalanceCard(props) {
 }
 
 export function EditableCard(props) {
+  const { uid, amount, title, selectedBudgetType, editOperation } = props;
   const [showEditor, setShowEditor] = useState(false);
-  const { amount, title } = props;
-  console.log("amount", amount);
+  const [editedAmount, setEditedAmount] = useState(amount);
+
+  useEffect(() => {
+    setEditedAmount(amount);
+  }, [amount]);
+
+  const handleChange = (e) => {
+    setEditedAmount(e.target.value);
+  };
 
   const nonEditingMode = (
     <>
@@ -33,6 +41,13 @@ export function EditableCard(props) {
     </>
   );
 
+  const handleEditConfirmClick = () => {
+    if (uid && selectedBudgetType && editedAmount) {
+      editOperation(selectedBudgetType, uid, editedAmount);
+      setShowEditor(false);
+    }
+  };
+
   const editingMode = (
     <>
       <Card data-bs-theme="dark" className="balance-card">
@@ -43,20 +58,16 @@ export function EditableCard(props) {
               size="lg"
               type="number"
               placeholder="Insert budget"
-              value={amount}
+              value={editedAmount}
               pattern={"[0-9]*"}
               inputMode={"numeric"}
+              onChange={handleChange}
             />
           </Card.Title>
           <Card.Text className="small">{title}</Card.Text>
         </Card.Body>
       </Card>
-      <span
-        className="edit-action-btn"
-        onClick={() => {
-          setShowEditor(false);
-        }}
-      >
+      <span className="edit-action-btn" onClick={handleEditConfirmClick}>
         Confirm
       </span>
     </>
