@@ -3,12 +3,12 @@ import Card from "react-bootstrap/Card";
 import Form from "react-bootstrap/Form";
 
 export default function BalanceCard(props) {
-  const { amount, title } = props;
+  const { amount, title, className } = props;
   return (
-    <Card data-bs-theme="dark" className="balance-card">
+    <Card data-bs-theme="dark" className={"balance-card " + className}>
       <Card.Body>
-        <Card.Title>{amount}</Card.Title>
         <Card.Text className="small">{title}</Card.Text>
+        <Card.Title>${amount}</Card.Title>
       </Card.Body>
     </Card>
   );

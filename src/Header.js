@@ -22,9 +22,7 @@ export default function Header(props) {
             <p className="welcome-back-text">
               Welcome back
               <br />
-              <span className="name">
-                {displayName}
-              </span>
+              <span className="name">{displayName}</span>
             </p>
           </Col>
           <Col className="header-right" xs={2}>

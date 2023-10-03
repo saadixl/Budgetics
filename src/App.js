@@ -6,7 +6,7 @@ import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 
 import Header from "./Header";
-import BudgetTypes from "./BudgetTypes";
+import BudgetTypes, { getBudgetTitle } from "./BudgetTypes";
 import BalanceCard, { EditableCard } from "./BalanceCard";
 import { getBudgets, updateCurrent, resetMonth, updateBudget } from "./data";
 import { signInWithGoogle } from "./auth";
@@ -85,24 +85,27 @@ function App() {
           cleanUpOldData={cleanUpOldData}
         />
         <Col xs={12}>
-          <BudgetTypes setSelectedBudgetType={setSelectedBudgetType} />
+          <BalanceCard
+            className="remaining"
+            amount={budget - current}
+            title={`${getBudgetTitle(selectedBudgetType)} balance`}
+          />
         </Col>
         <Col xs={12}>
+          <BudgetTypes setSelectedBudgetType={setSelectedBudgetType} />
+        </Col>
+        <Col xs={6}>
           <EditableCard
             uid={currentUid}
             amount={budget}
-            title="Budget"
+            title="Budgeted"
             selectedBudgetType={selectedBudgetType}
             editOperation={updateBudget}
           />
         </Col>
         <Col xs={6}>
-          <BalanceCard amount={current} title="Current" />
+          <BalanceCard amount={current} title="Currently spent" />
         </Col>
-        <Col xs={6}>
-          <BalanceCard amount={budget - current} title="Remaining" />
-        </Col>
-
         <Col xs={12}>
           <Form.Control
             data-bs-theme="dark"
@@ -114,7 +117,7 @@ function App() {
             onChange={handleAmountChange}
           />
         </Col>
-        <Col xs={6}>
+        <Col xs={7}>
           <div className="d-grid gap-2">
             <Button
               className="action-button"
@@ -126,9 +129,14 @@ function App() {
             </Button>
           </div>
         </Col>
-        <Col xs={6}>
+        <Col xs={5}>
           <div className="d-grid gap-2">
-            <Button className="action-button" variant="warning" size="lg" onClick={handleResetMonth}>
+            <Button
+              className="action-button"
+              variant="warning"
+              size="lg"
+              onClick={handleResetMonth}
+            >
               Reset month
             </Button>
           </div>
