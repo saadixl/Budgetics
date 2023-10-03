@@ -37,11 +37,14 @@ export default function Header(props) {
   } else {
     return (
       <Col xs={12}>
-        <div className="d-grid gap-2">
-          <Button variant="danger" size="lg" onClick={handleLoginClick}>
-            Login with Google
-          </Button>
-        </div>
+        <Button
+          className="login-btn"
+          variant="danger"
+          size="lg"
+          onClick={handleLoginClick}
+        >
+          Login with Google
+        </Button>
       </Col>
     );
   }

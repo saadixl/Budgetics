@@ -132,7 +132,12 @@ body {
   text-decoration: underline;
 }
 
-.action-button {
+.action-button,
+.login-btn {
   font-size: 16px;
   border-radius: 15px;
+}
+
+.login-btn {
+  margin-bottom: 36px;
 }
