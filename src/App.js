@@ -11,7 +11,6 @@ import BalanceCard from "./BalanceCard";
 import { getBudgets, updateCurrent, resetMonth } from "./data";
 import { signInWithGoogle } from "./auth";
 
-
 function App() {
   const [selectedBudgetType, setSelectedBudgetType] = useState("");
   const [budgetTypes, setBudgetTypes] = useState({});
