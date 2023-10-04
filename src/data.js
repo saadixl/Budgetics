@@ -35,7 +35,8 @@ export function getBudgets(uid, set) {
 }
 
 export function updateCurrent(budget, uid, newValue) {
-  set(ref(db, `budgetInstances/${uid}/${budget}/current`), newValue);
+  const value = parseFloat(newValue);
+  set(ref(db, `budgetInstances/${uid}/${budget}/current`), value);
 }
 
 export function updateBudget(budget, uid, newValue) {

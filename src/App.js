@@ -105,7 +105,13 @@ function App() {
           />
         </Col>
         <Col xs={6}>
-          <BalanceCard amount={current} title="Currently spent" />
+          <EditableCard
+            uid={currentUid}
+            amount={current}
+            title="Currently spent"
+            selectedBudgetType={selectedBudgetType}
+            editOperation={updateCurrent}
+          />
         </Col>
         <Col xs={12}>
           <Form.Control
