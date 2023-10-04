@@ -60,8 +60,8 @@ export function updateCurrent(budget, uid, payload) {
   }
 }
 
-export function updateBudget(budget, uid, newValue) {
-  const value = parseFloat(newValue);
+export function updateBudget(budget, uid, { amount }) {
+  const value = parseFloat(amount);
   const budgetPath = `${uid}/${budget}/budget`;
   set(ref(db, `budgetInstances/${budgetPath}`), value);
   set(ref(db, `budgetTemplates/${budgetPath}`), value);
