@@ -8,6 +8,7 @@ import Form from "react-bootstrap/Form";
 import Header from "./Header";
 import BudgetTypes, { getBudgetTitle } from "./BudgetTypes";
 import BalanceCard, { EditableCard } from "./BalanceCard";
+import History from "./History";
 import { getBudgets, updateCurrent, resetMonth, updateBudget } from "./data";
 import { signInWithGoogle } from "./auth";
 
@@ -15,7 +16,7 @@ function App() {
   const [selectedBudgetType, setSelectedBudgetType] = useState("");
   const [budgetTypes, setBudgetTypes] = useState({});
   const [amount, setAmount] = useState(0);
-  const [description, setDescription] = useState();
+  const [description, setDescription] = useState("Unknown expense");
   const [currentUser, setCurrentUser] = useState();
   const [currentUid, setCurrentUid] = useState();
 
@@ -23,7 +24,7 @@ function App() {
     setBudgetTypes({});
     setSelectedBudgetType("");
     setAmount(0);
-    setDescription();
+    setDescription("Unknown expense");
     setCurrentUser();
     setCurrentUid();
     localStorage.removeItem("currentUser");
@@ -66,6 +67,7 @@ function App() {
               0,
           ),
         description,
+        amountForHistory: parseFloat(amount),
       });
     }
   };
@@ -81,7 +83,12 @@ function App() {
     signInWithGoogle(setCurrentUser);
   };
 
-  const { budget = 0, current = 0 } = budgetTypes[selectedBudgetType] || {};
+  const {
+    budget = 0,
+    current = 0,
+    history,
+  } = budgetTypes[selectedBudgetType] || {};
+
   return (
     <Container>
       <div className="header-on-background"></div>
@@ -139,7 +146,7 @@ function App() {
             onChange={handleDescriptionChange}
           />
         </Col>
-        <Col xs={12}>
+        <Col xs={6}>
           <div className="d-grid gap-2">
             <Button
               className="action-button money-green"
@@ -151,17 +158,25 @@ function App() {
             </Button>
           </div>
         </Col>
-        <Col xs={{ span: 6, offset: 3 }}>
+        <Col xs={6}>
           <div className="d-grid gap-2">
             <Button
               className="action-button"
               variant="secondary"
-              size="sm"
+              size="lg"
               onClick={handleResetMonth}
             >
               Reset month
             </Button>
           </div>
+        </Col>
+        <Col xs={12}>
+          <History
+            data={history}
+            title={`Recent ${getBudgetTitle(
+              selectedBudgetType,
+            ).toLowerCase()} history`}
+          />
         </Col>
       </Row>
     </Container>

@@ -6,7 +6,7 @@ body {
 }
 
 .header-on-background {
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   height: 290px;
@@ -145,4 +145,29 @@ body {
 .amount-after-decimal-point {
   font-size: 50%;
   color: #999;
+}
+
+.history-item-row {
+  border-bottom: 1px solid #333;
+  padding: 10px 0;
+  font-size: 16px;
+}
+
+.amount-col {
+  text-align: right;
+  margin-top: 10px;
+}
+
+.history-item-row:last-child {
+  border-bottom: none;
+}
+
+.history-header {
+  margin-bottom: 20px;
+}
+
+.history-datetime {
+  margin-bottom: 0;
+  font-size: 11px;
+  color: #777;
 }

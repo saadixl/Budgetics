@@ -35,14 +35,14 @@ export function getBudgets(uid, set) {
 }
 
 export function updateCurrent(budget, uid, payload) {
-  const { amount, description } = payload;
+  const { amount, description, amountForHistory } = payload;
   const convertedAmount = parseFloat(amount);
-  console.log("description", description);
   set(ref(db, `budgetInstances/${uid}/${budget}/current`), convertedAmount);
-  if (description) {
+  if (description && amountForHistory) {
     push(child(ref(db), `budgetInstances/${uid}/${budget}/history`), {
       description,
       timestamp: Date.now(),
+      amount: amountForHistory,
     });
   }
 }
