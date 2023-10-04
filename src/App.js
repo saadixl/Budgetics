@@ -146,7 +146,7 @@ function App() {
             onChange={handleDescriptionChange}
           />
         </Col>
-        <Col xs={6}>
+        <Col xs={12}>
           <div className="d-grid gap-2">
             <Button
               className="action-button money-green"
@@ -158,18 +158,6 @@ function App() {
             </Button>
           </div>
         </Col>
-        <Col xs={6}>
-          <div className="d-grid gap-2">
-            <Button
-              className="action-button"
-              variant="secondary"
-              size="lg"
-              onClick={handleResetMonth}
-            >
-              Reset month
-            </Button>
-          </div>
-        </Col>
         <Col xs={12}>
           <History
             data={history}
@@ -177,6 +165,17 @@ function App() {
               selectedBudgetType,
             ).toLowerCase()} history`}
           />
+        </Col>
+        <Col xs={{ span: 6, offset: 3 }}>
+          <div className="d-grid gap-2">
+            <Button
+              className="action-button reset"
+              variant="secondary"
+              onClick={handleResetMonth}
+            >
+              Reset month
+            </Button>
+          </div>
         </Col>
       </Row>
     </Container>
