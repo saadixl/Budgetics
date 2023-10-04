@@ -55,6 +55,5 @@ export default function BudgetTypes(props) {
 
 export function getBudgetTitle(key) {
   const matched = budgetTypes.filter((item) => item.key === key);
-  console.log("matched", matched);
   return matched && matched.length ? matched[0].title : "Unknown";
 }

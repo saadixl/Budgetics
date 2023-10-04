@@ -15,6 +15,7 @@ function App() {
   const [selectedBudgetType, setSelectedBudgetType] = useState("");
   const [budgetTypes, setBudgetTypes] = useState({});
   const [amount, setAmount] = useState(0);
+  const [description, setDescription] = useState();
   const [currentUser, setCurrentUser] = useState();
   const [currentUid, setCurrentUid] = useState();
 
@@ -22,6 +23,7 @@ function App() {
     setBudgetTypes({});
     setSelectedBudgetType("");
     setAmount(0);
+    setDescription();
     setCurrentUser();
     setCurrentUid();
     localStorage.removeItem("currentUser");
@@ -49,18 +51,22 @@ function App() {
     setAmount(e.target.value);
   };
 
+  const handleDescriptionChange = (e) => {
+    setDescription(e.target.value);
+  };
+
   const handleTrackExpenseClick = () => {
     if (selectedBudgetType && amount) {
-      updateCurrent(
-        selectedBudgetType,
-        currentUid,
-        parseFloat(amount) +
+      updateCurrent(selectedBudgetType, currentUid, {
+        amount:
+          parseFloat(amount) +
           parseFloat(
             (budgetTypes[selectedBudgetType] &&
               budgetTypes[selectedBudgetType].current) ||
               0,
           ),
-      );
+        description,
+      });
     }
   };
 
@@ -118,10 +124,19 @@ function App() {
             data-bs-theme="dark"
             size="lg"
             type="number"
-            placeholder="Type amount spent"
+            placeholder="Insert amount spent"
             pattern={"[0-9]*"}
             inputMode={"numeric"}
             onChange={handleAmountChange}
+          />
+        </Col>
+        <Col xs={12}>
+          <Form.Control
+            data-bs-theme="dark"
+            size="lg"
+            type="text"
+            placeholder="Write some description (optional)"
+            onChange={handleDescriptionChange}
           />
         </Col>
         <Col xs={12}>

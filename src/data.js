@@ -1,5 +1,5 @@
 import { db } from "./firebase";
-import { onValue, ref, set, child, get } from "firebase/database";
+import { onValue, ref, set, child, get, push } from "firebase/database";
 
 const DEFAULT_BUDGET_TEMPLATE = {
   bills: {
@@ -34,9 +34,17 @@ export function getBudgets(uid, set) {
   }
 }
 
-export function updateCurrent(budget, uid, newValue) {
-  const value = parseFloat(newValue);
-  set(ref(db, `budgetInstances/${uid}/${budget}/current`), value);
+export function updateCurrent(budget, uid, payload) {
+  const { amount, description } = payload;
+  const convertedAmount = parseFloat(amount);
+  console.log("description", description);
+  set(ref(db, `budgetInstances/${uid}/${budget}/current`), convertedAmount);
+  if (description) {
+    push(child(ref(db), `budgetInstances/${uid}/${budget}/history`), {
+      description,
+      timestamp: Date.now(),
+    });
+  }
 }
 
 export function updateBudget(budget, uid, newValue) {
