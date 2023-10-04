@@ -22,13 +22,26 @@ const DEFAULT_BUDGET_TEMPLATE = {
   },
 };
 
-export function getBudgets(uid, set) {
+function calculateTotalBalance(data, setTotalBalance) {
+  if (data) {
+    let total = 0;
+    Object.keys(data).forEach((key) => {
+      const item = data[key];
+      const { budget = 0, current = 0 } = item;
+      total += budget - current;
+    });
+    setTotalBalance(total);
+  }
+}
+
+export function getBudgets(uid, set, setTotalBalance) {
   if (uid) {
     const query = ref(db, `budgetInstances/${uid}`);
     return onValue(query, (snapshot) => {
       const data = snapshot.val();
       if (snapshot.exists()) {
         set(data);
+        calculateTotalBalance(data, setTotalBalance);
       }
     });
   }

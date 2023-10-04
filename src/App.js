@@ -16,6 +16,7 @@ function App() {
   const [selectedBudgetType, setSelectedBudgetType] = useState("");
   const [budgetTypes, setBudgetTypes] = useState({});
   const [amount, setAmount] = useState(0);
+  const [totalBalance, setTotalBalance] = useState(0);
   const [description, setDescription] = useState("Unknown expense");
   const [currentUser, setCurrentUser] = useState();
   const [currentUid, setCurrentUid] = useState();
@@ -45,7 +46,7 @@ function App() {
   }, [currentUser]);
 
   useEffect(() => {
-    getBudgets(currentUid, setBudgetTypes);
+    getBudgets(currentUid, setBudgetTypes, setTotalBalance);
   }, [currentUid]);
 
   const handleAmountChange = (e) => {
@@ -103,7 +104,7 @@ function App() {
             className="remaining"
             amount={budget - current}
             title={`${getBudgetTitle(selectedBudgetType)} balance`}
-            secondaryTitle="Total $5786.20"
+            secondaryTitle={`Total $${totalBalance}`}
           />
         </Col>
         <Col className="budget-type-wrapper" xs={12}>

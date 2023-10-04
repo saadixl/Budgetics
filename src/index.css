@@ -41,7 +41,6 @@ body {
 
 .balance-card {
   min-height: 150px;
-  text-align: center;
 }
 
 .balance-card .card-body {
@@ -62,6 +61,7 @@ body {
   background: transparent;
   border: none;
   margin-bottom: 10px;
+  text-align: center;
 }
 
 .budget-type-wrapper {
@@ -180,4 +180,5 @@ body {
 .balance-card-secondary {
   letter-spacing: 1px;
   font-weight: bold;
+  color: #111;
 }
