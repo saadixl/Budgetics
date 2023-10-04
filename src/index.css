@@ -141,3 +141,8 @@ body {
 .login-btn {
   margin-bottom: 36px;
 }
+
+.amount-after-decimal-point {
+  font-size: 50%;
+  color: #999;
+}

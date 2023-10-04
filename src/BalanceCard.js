@@ -3,12 +3,19 @@ import Card from "react-bootstrap/Card";
 import Form from "react-bootstrap/Form";
 
 export default function BalanceCard(props) {
-  const { amount, title, className } = props;
+  const { amount = 0, title, className } = props;
+  const splittedAmount = amount.toFixed(2).split(".");
+  const styledAmount = (
+    <>
+      <span>{splittedAmount[0]}</span>.
+      <span className="amount-after-decimal-point">{splittedAmount[1]}</span>
+    </>
+  );
   return (
     <Card data-bs-theme="dark" className={"balance-card " + className}>
       <Card.Body>
         <Card.Text className="small">{title}</Card.Text>
-        <Card.Title>${amount.toFixed(2)}</Card.Title>
+        <Card.Title>${styledAmount}</Card.Title>
       </Card.Body>
     </Card>
   );
