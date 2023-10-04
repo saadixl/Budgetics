@@ -3,7 +3,7 @@ import Card from "react-bootstrap/Card";
 import Form from "react-bootstrap/Form";
 
 export default function BalanceCard(props) {
-  const { amount = 0, title, className } = props;
+  const { amount = 0, title, className, secondaryTitle } = props;
   const splittedAmount = amount.toFixed(2).split(".");
   const styledAmount = (
     <>
@@ -16,6 +16,7 @@ export default function BalanceCard(props) {
       <Card.Body>
         <Card.Text className="small">{title}</Card.Text>
         <Card.Title>${styledAmount}</Card.Title>
+        <p className="balance-card-secondary">{secondaryTitle}</p>
       </Card.Body>
     </Card>
   );

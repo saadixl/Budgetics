@@ -103,6 +103,7 @@ function App() {
             className="remaining"
             amount={budget - current}
             title={`${getBudgetTitle(selectedBudgetType)} balance`}
+            secondaryTitle="Total $5786.20"
           />
         </Col>
         <Col className="budget-type-wrapper" xs={12}>

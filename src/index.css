@@ -9,7 +9,7 @@ body {
   position: absolute;
   top: 0;
   left: 0;
-  height: 290px;
+  height: 330px;
   width: 100%;
   background-color: #0d703f;
   z-index: -10;
@@ -41,6 +41,7 @@ body {
 
 .balance-card {
   min-height: 150px;
+  text-align: center;
 }
 
 .balance-card .card-body {
@@ -174,4 +175,9 @@ body {
   margin-bottom: 0;
   font-size: 12px;
   color: #777;
+}
+
+.balance-card-secondary {
+  letter-spacing: 1px;
+  font-weight: bold;
 }
