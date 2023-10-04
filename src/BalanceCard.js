@@ -8,7 +8,7 @@ export default function BalanceCard(props) {
     <Card data-bs-theme="dark" className={"balance-card " + className}>
       <Card.Body>
         <Card.Text className="small">{title}</Card.Text>
-        <Card.Title>${amount}</Card.Title>
+        <Card.Title>${amount.toFixed(2)}</Card.Title>
       </Card.Body>
     </Card>
   );
