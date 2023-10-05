@@ -58,6 +58,10 @@ export function EditableCard(props) {
     }
   };
 
+  const handleEditCancelClick = () => {
+    setShowEditor(false);
+  };
+
   const editingMode = (
     <>
       <Card data-bs-theme="dark" className="balance-card">
@@ -77,6 +81,9 @@ export function EditableCard(props) {
           <Card.Text className="small">{title}</Card.Text>
         </Card.Body>
       </Card>
+      <span className="edit-cancel-action-btn" onClick={handleEditCancelClick}>
+        Cancel
+      </span>{" "}
       <span className="edit-action-btn" onClick={handleEditConfirmClick}>
         Confirm
       </span>

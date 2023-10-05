@@ -129,7 +129,17 @@ body {
   font-weight: bold;
 }
 
-.editable-card-wrapper .edit-action-btn:hover {
+.editable-card-wrapper .edit-cancel-action-btn {
+  position: absolute;
+  bottom: 10px;
+  right: 70px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.editable-card-wrapper .edit-action-btn:hover,
+.editable-card-wrapper .edit-cancel-action-btn:hover {
   text-decoration: underline;
 }
 
