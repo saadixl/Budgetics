@@ -34,7 +34,7 @@ export default function History(props) {
   };
 
   if (history) {
-    historyComp = Object.keys(history).map((key) => {
+    historyComp = Object.keys(history).reverse().map((key) => {
       const { amount, description, timestamp } = history[key];
       return (
         <Row key={key} className="history-item-row small">
