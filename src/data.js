@@ -47,24 +47,28 @@ export function getBudgets(uid, set, setTotalBalance) {
   }
 }
 
-export function updateCurrent(budget, uid, payload) {
-  const { amount, description, amountForHistory } = payload;
+export function updateCurrent(uid, payload) {
+  const { amount, amountForHistory, budget, description } = payload;
   const convertedAmount = parseFloat(amount);
-  set(ref(db, `budgetInstances/${uid}/${budget}/current`), convertedAmount);
-  if (description && amountForHistory) {
-    push(child(ref(db), `budgetInstances/${uid}/${budget}/history`), {
-      description,
-      timestamp: Date.now(),
-      amount: amountForHistory,
-    });
+  if (uid) {
+    set(ref(db, `budgetInstances/${uid}/${budget}/current`), convertedAmount);
+    if (description && amountForHistory) {
+      push(child(ref(db), `budgetInstances/${uid}/${budget}/history`), {
+        description,
+        timestamp: Date.now(),
+        amount: amountForHistory,
+      });
+    }
   }
 }
 
-export function updateBudget(budget, uid, { amount }) {
+export function updateBudget(uid, { amount, budget }) {
   const value = parseFloat(amount);
-  const budgetPath = `${uid}/${budget}/budget`;
-  set(ref(db, `budgetInstances/${budgetPath}`), value);
-  set(ref(db, `budgetTemplates/${budgetPath}`), value);
+  if (uid) {
+    const budgetPath = `${uid}/${budget}/budget`;
+    set(ref(db, `budgetInstances/${budgetPath}`), value);
+    set(ref(db, `budgetTemplates/${budgetPath}`), value);
+  }
 }
 
 export function resetMonth(uid) {

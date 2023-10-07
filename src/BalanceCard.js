@@ -51,8 +51,9 @@ export function EditableCard(props) {
 
   const handleEditConfirmClick = () => {
     if (uid && selectedBudgetType && !isNaN(editedAmount)) {
-      editOperation(selectedBudgetType, uid, {
+      editOperation(uid, {
         amount: editedAmount,
+        budget: selectedBudgetType,
       });
       setShowEditor(false);
     }
