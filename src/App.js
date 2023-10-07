@@ -162,7 +162,10 @@ function App() {
         </Col>
         <Col xs={12}>
           <History
+            uid={currentUid}
             data={history}
+            current={current}
+            selectedBudgetType={selectedBudgetType}
             title={`Recent ${getBudgetTitle(
               selectedBudgetType,
             ).toLowerCase()} history`}

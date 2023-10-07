@@ -81,3 +81,15 @@ export function resetMonth(uid) {
     });
   }
 }
+
+export function deleteHistory(uid, { amount, budget, key, current }) {
+  if (uid && key) {
+    set(ref(db, `budgetInstances/${uid}/${budget}/history/${key}`), null);
+    if (amount) {
+      set(
+        ref(db, `budgetInstances/${uid}/${budget}/current`),
+        current - amount,
+      );
+    }
+  }
+}
