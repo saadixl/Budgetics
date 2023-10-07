@@ -98,6 +98,7 @@ function App() {
           currentUser={currentUser}
           handleLoginClick={handleLoginClick}
           cleanUpOldData={cleanUpOldData}
+          handleResetMonth={handleResetMonth}
         />
         <Col xs={12}>
           <BalanceCard
@@ -170,17 +171,6 @@ function App() {
               selectedBudgetType,
             ).toLowerCase()} history`}
           />
-        </Col>
-        <Col xs={{ span: 6, offset: 3 }}>
-          <div className="d-grid gap-2">
-            <Button
-              className="action-button reset"
-              variant="secondary"
-              onClick={handleResetMonth}
-            >
-              Reset month
-            </Button>
-          </div>
         </Col>
       </Row>
     </Container>
