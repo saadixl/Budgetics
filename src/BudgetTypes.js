@@ -25,6 +25,10 @@ const budgetTypes = [
     title: "Shopping",
     key: "shopping",
   },
+  {
+    title: "Exception",
+    key: "exception",
+  },
 ];
 
 export default function BudgetTypes(props) {
