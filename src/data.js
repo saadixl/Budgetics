@@ -97,3 +97,17 @@ export function deleteHistory(uid, { amount, budget, key, current }) {
     }
   }
 }
+
+export function archiveMonth(uid) {
+  if (uid) {
+    const dbRef = ref(db);
+    get(child(dbRef, `budgetInstances/${uid}`)).then((snapshot) => {
+      if (snapshot.exists()) {
+        const year = new Date().getFullYear();
+        const month = new Date().getMonth();
+        const currentMonth = snapshot.val();
+        set(ref(db, `archives/${uid}/${year}/${month}`), currentMonth);
+      }
+    });
+  }
+}

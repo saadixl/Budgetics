@@ -5,8 +5,13 @@ import Col from "react-bootstrap/Col";
 import { signOut } from "./auth";
 
 export default function Header(props) {
-  const { currentUser, handleLoginClick, cleanUpOldData, handleResetMonth } =
-    props;
+  const {
+    currentUser,
+    handleLoginClick,
+    cleanUpOldData,
+    handleResetMonth,
+    handleArchiveMonth,
+  } = props;
 
   const handleSignoutClick = () => {
     signOut(cleanUpOldData);
@@ -35,7 +40,10 @@ export default function Header(props) {
 
               <Dropdown.Menu>
                 <Dropdown.Item onClick={handleResetMonth}>
-                  Reset data
+                  Reset month
+                </Dropdown.Item>
+                <Dropdown.Item onClick={handleArchiveMonth}>
+                  Archive month
                 </Dropdown.Item>
                 <Dropdown.Item onClick={handleSignoutClick}>
                   Logout

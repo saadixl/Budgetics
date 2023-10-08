@@ -9,7 +9,13 @@ import Header from "./Header";
 import BudgetTypes, { getBudgetTitle } from "./BudgetTypes";
 import BalanceCard, { EditableCard } from "./BalanceCard";
 import History from "./History";
-import { getBudgets, updateCurrent, resetMonth, updateBudget } from "./data";
+import {
+  getBudgets,
+  updateCurrent,
+  resetMonth,
+  updateBudget,
+  archiveMonth,
+} from "./data";
 import { signInWithGoogle } from "./auth";
 
 function App() {
@@ -81,6 +87,15 @@ function App() {
     }
   };
 
+  const handleArchiveMonth = () => {
+    const confirm = window.confirm(
+      "Do you want to save this months data in archive?",
+    );
+    if (confirm) {
+      archiveMonth(currentUid);
+    }
+  };
+
   const handleLoginClick = () => {
     signInWithGoogle(setCurrentUser);
   };
@@ -100,6 +115,7 @@ function App() {
           handleLoginClick={handleLoginClick}
           cleanUpOldData={cleanUpOldData}
           handleResetMonth={handleResetMonth}
+          handleArchiveMonth={handleArchiveMonth}
         />
         <Col xs={12}>
           <BalanceCard
