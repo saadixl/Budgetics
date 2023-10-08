@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import Card from "react-bootstrap/Card";
 import Form from "react-bootstrap/Form";
+import { showAlert } from "./utils";
 
 export default function BalanceCard(props) {
   const { amount = 0, title, className, secondaryTitle, denominator } = props;
@@ -59,6 +60,7 @@ export function EditableCard(props) {
         budget: selectedBudgetType,
       });
       setShowEditor(false);
+      showAlert("Edit completed");
     }
   };
 

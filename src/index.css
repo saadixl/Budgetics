@@ -195,14 +195,14 @@ body {
 
 .sticky-add-btn {
   position: fixed;
-  bottom: 10px;
+  bottom: 0;
   left: 0;
   text-align: center;
   z-index: 100;
   font-size: 60px;
   color: #0d703f;
   background: #000;
-  padding: 5px 0;
+  padding: 15px 0;
   cursor: pointer;
 }
 

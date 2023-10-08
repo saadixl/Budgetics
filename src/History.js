@@ -4,6 +4,7 @@ import Card from "react-bootstrap/Card";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { deleteHistory } from "./data";
+import { showAlert } from "./utils";
 
 export default function History(props) {
   const { data, title, selectedBudgetType, current = 0, uid } = props;
@@ -30,6 +31,7 @@ export default function History(props) {
         current,
         key,
       });
+      showAlert("Expense history deleted", "warning");
     }
   };
 

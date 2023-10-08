@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-
+import { ToastContainer } from "react-toastify";
 import AddModal from "./AddModal";
 import Header from "./Header";
 import BudgetTypes, { getBudgetTitle } from "./BudgetTypes";
@@ -15,7 +15,9 @@ import {
   updateBudget,
   archiveMonth,
 } from "./data";
+import { showAlert } from "./utils";
 import { signInWithGoogle } from "./auth";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   const [selectedBudgetType, setSelectedBudgetType] = useState("");
@@ -77,6 +79,7 @@ function App() {
         amountForHistory: parseFloat(amount),
         budget: selectedBudgetType,
       });
+      showAlert("New expense added");
     }
   };
 
@@ -84,6 +87,7 @@ function App() {
     const confirm = window.confirm("Do you want to reset the month?");
     if (confirm) {
       resetMonth(currentUid);
+      showAlert("Month reset completed", "warning");
     }
   };
 
@@ -93,6 +97,7 @@ function App() {
     );
     if (confirm) {
       archiveMonth(currentUid);
+      showAlert("Current months data archived");
     }
   };
 
@@ -133,6 +138,7 @@ function App() {
           handleTrackExpenseClick={handleTrackExpenseClick}
           selectedBudgetType={selectedBudgetType}
         />
+        <ToastContainer />
         <Col xs={12}>
           <BalanceCard
             className="remaining"
