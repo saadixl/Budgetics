@@ -59,7 +59,7 @@ function App() {
 
   const handleTrackExpenseClick = () => {
     if (selectedBudgetType && amount) {
-      updateCurrent(selectedBudgetType, currentUid, {
+      updateCurrent(currentUid, {
         amount:
           parseFloat(amount) +
           parseFloat(
@@ -69,6 +69,7 @@ function App() {
           ),
         description,
         amountForHistory: parseFloat(amount),
+        budget: selectedBudgetType,
       });
     }
   };

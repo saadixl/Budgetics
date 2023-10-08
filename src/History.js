@@ -34,28 +34,30 @@ export default function History(props) {
   };
 
   if (history) {
-    historyComp = Object.keys(history).reverse().map((key) => {
-      const { amount, description, timestamp } = history[key];
-      return (
-        <Row key={key} className="history-item-row small">
-          <Col xs={8}>
-            <p className="history-datetime">
-              {moment(timestamp).format("DD/MM/YYYY hh:mm A")}
-            </p>
-            {description}
-          </Col>
-          <Col xs={3} className="amount-col">
-            ${amount}
-          </Col>
-          <Col xs={1} className="amount-col">
-            <i
-              onClick={() => handleDeleteHistory(key, amount, current)}
-              className="fa-solid fa-xmark"
-            ></i>
-          </Col>
-        </Row>
-      );
-    });
+    historyComp = Object.keys(history)
+      .reverse()
+      .map((key) => {
+        const { amount, description, timestamp } = history[key];
+        return (
+          <Row key={key} className="history-item-row small">
+            <Col xs={8}>
+              <p className="history-datetime">
+                {moment(timestamp).format("DD/MM/YYYY hh:mm A")}
+              </p>
+              {description}
+            </Col>
+            <Col xs={3} className="amount-col">
+              ${amount}
+            </Col>
+            <Col xs={1} className="amount-col">
+              <i
+                onClick={() => handleDeleteHistory(key, amount, current)}
+                className="fa-solid fa-xmark"
+              ></i>
+            </Col>
+          </Row>
+        );
+      });
   }
 
   return (
