@@ -3,8 +3,11 @@ import Card from "react-bootstrap/Card";
 import Form from "react-bootstrap/Form";
 
 export default function BalanceCard(props) {
-  const { amount = 0, title, className, secondaryTitle } = props;
+  const { amount = 0, title, className, secondaryTitle, denominator } = props;
+  const lowBalance =
+    denominator && amount / denominator <= 0.33 ? "low-balance" : "";
   const splittedAmount = amount.toFixed(2).split(".");
+  console.log("lowBalance", lowBalance);
   const styledAmount = (
     <>
       <span>{splittedAmount[0]}</span>.
@@ -15,7 +18,7 @@ export default function BalanceCard(props) {
     <Card data-bs-theme="dark" className={"balance-card " + className}>
       <Card.Body>
         <Card.Text className="small">{title}</Card.Text>
-        <Card.Title>${styledAmount}</Card.Title>
+        <Card.Title className={lowBalance}>${styledAmount}</Card.Title>
         <p className="balance-card-secondary">{secondaryTitle}</p>
       </Card.Body>
     </Card>

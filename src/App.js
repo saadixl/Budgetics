@@ -137,6 +137,7 @@ function App() {
           <BalanceCard
             className="remaining"
             amount={budget - current}
+            denominator={budget}
             title={`${getBudgetTitle(selectedBudgetType)} balance`}
             secondaryTitle={`Total $${totalBalance.toFixed(2)}`}
           />

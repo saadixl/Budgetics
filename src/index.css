@@ -214,3 +214,7 @@ body {
   font-size: 14px;
   margin-left: 2px;
 }
+
+.low-balance {
+  color: #800020;
+}
