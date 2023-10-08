@@ -106,7 +106,7 @@ function App() {
             className="remaining"
             amount={budget - current}
             title={`${getBudgetTitle(selectedBudgetType)} balance`}
-            secondaryTitle={`Total $${totalBalance}`}
+            secondaryTitle={`Total $${totalBalance.toFixed(2)}`}
           />
         </Col>
         <Col className="budget-type-wrapper" xs={12}>
