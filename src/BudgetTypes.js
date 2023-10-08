@@ -45,15 +45,18 @@ export default function BudgetTypes(props) {
     );
   });
   return (
-    <Form.Select
-      onChange={handleChange}
-      data-bs-theme="dark"
-      aria-label="Default select example"
-      size="lg"
-    >
-      <option value="">Select a budget type</option>
-      {options}
-    </Form.Select>
+    <div>
+      <span className="category-dropdown-label">Choose a category</span>
+      <Form.Select
+        onChange={handleChange}
+        data-bs-theme="dark"
+        aria-label="Default select example"
+        size="lg"
+      >
+        <option value="">Select a budget type</option>
+        {options}
+      </Form.Select>
+    </div>
   );
 }
 
