@@ -1,10 +1,9 @@
 import { useState, useEffect } from "react";
-import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import Form from "react-bootstrap/Form";
 
+import AddModal from "./AddModal";
 import Header from "./Header";
 import BudgetTypes, { getBudgetTitle } from "./BudgetTypes";
 import BalanceCard, { EditableCard } from "./BalanceCard";
@@ -26,6 +25,7 @@ function App() {
   const [description, setDescription] = useState("Unknown expense");
   const [currentUser, setCurrentUser] = useState();
   const [currentUid, setCurrentUid] = useState();
+  const [showAddModal, setShowAddModal] = useState(false);
 
   const cleanUpOldData = () => {
     setBudgetTypes({});
@@ -117,6 +117,22 @@ function App() {
           handleResetMonth={handleResetMonth}
           handleArchiveMonth={handleArchiveMonth}
         />
+        <i
+          onClick={() => {
+            setShowAddModal(true);
+          }}
+          className="fa-solid fa-circle-plus sticky-add-btn"
+        ></i>
+        <AddModal
+          show={showAddModal}
+          onHide={() => {
+            setShowAddModal(false);
+          }}
+          handleAmountChange={handleAmountChange}
+          handleDescriptionChange={handleDescriptionChange}
+          handleTrackExpenseClick={handleTrackExpenseClick}
+          selectedBudgetType={selectedBudgetType}
+        />
         <Col xs={12}>
           <BalanceCard
             className="remaining"
@@ -145,38 +161,6 @@ function App() {
             selectedBudgetType={selectedBudgetType}
             editOperation={updateCurrent}
           />
-        </Col>
-        <Col xs={12}>
-          <Form.Control
-            data-bs-theme="dark"
-            size="lg"
-            type="number"
-            placeholder="Insert amount spent"
-            pattern={"[0-9]*"}
-            inputMode={"numeric"}
-            onChange={handleAmountChange}
-          />
-        </Col>
-        <Col xs={12}>
-          <Form.Control
-            data-bs-theme="dark"
-            size="lg"
-            type="text"
-            placeholder="Write some description (optional)"
-            onChange={handleDescriptionChange}
-          />
-        </Col>
-        <Col xs={12}>
-          <div className="d-grid gap-2">
-            <Button
-              className="action-button money-green"
-              variant="primary"
-              size="lg"
-              onClick={handleTrackExpenseClick}
-            >
-              Track expense
-            </Button>
-          </div>
         </Col>
         <Col xs={12}>
           <History
