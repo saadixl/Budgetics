@@ -5,15 +5,16 @@ import Col from "react-bootstrap/Col";
 import { ToastContainer } from "react-toastify";
 import AddModal from "./AddModal";
 import Header from "./Header";
-import BudgetTypes, { getBudgetTitle } from "./BudgetTypes";
+import BudgetTypes, { getBudgetTitle, BudgetTypesEditor } from "./BudgetTypes";
 import BalanceCard, { EditableCard } from "./BalanceCard";
 import History from "./History";
 import {
-  getBudgets,
+  getCurrentMonthsBudgets,
   updateCurrent,
   resetMonth,
   updateBudget,
   archiveMonth,
+  getBudgetTemplate,
 } from "./data";
 import { showAlert } from "./utils";
 import { signInWithGoogle } from "./auth";
@@ -28,6 +29,8 @@ function App() {
   const [currentUser, setCurrentUser] = useState();
   const [currentUid, setCurrentUid] = useState();
   const [showAddModal, setShowAddModal] = useState(false);
+  const [showCategoryEditorModal, setShowCategoryEditorModal] = useState(false);
+  const [remoteBudgets, setRemoteBudgets] = useState([]);
 
   const cleanUpOldData = () => {
     setBudgetTypes({});
@@ -54,7 +57,8 @@ function App() {
   }, [currentUser]);
 
   useEffect(() => {
-    getBudgets(currentUid, setBudgetTypes, setTotalBalance);
+    getCurrentMonthsBudgets(currentUid, setBudgetTypes, setTotalBalance);
+    getBudgetTemplate(currentUid, setRemoteBudgets);
   }, [currentUid]);
 
   const handleAmountChange = (e) => {
@@ -138,18 +142,25 @@ function App() {
           handleTrackExpenseClick={handleTrackExpenseClick}
           selectedBudgetType={selectedBudgetType}
         />
+        <BudgetTypesEditor show={showCategoryEditorModal} />
         <ToastContainer />
         <Col xs={12}>
           <BalanceCard
             className="remaining"
             amount={budget - current}
             denominator={budget}
-            title={`${getBudgetTitle(selectedBudgetType)} balance`}
+            title={`${getBudgetTitle(
+              remoteBudgets,
+              selectedBudgetType,
+            )} balance`}
             secondaryTitle={`Total $${totalBalance.toFixed(2)}`}
           />
         </Col>
         <Col className="budget-type-wrapper" xs={12}>
-          <BudgetTypes setSelectedBudgetType={setSelectedBudgetType} />
+          <BudgetTypes
+            setSelectedBudgetType={setSelectedBudgetType}
+            remoteBudgets={remoteBudgets}
+          />
         </Col>
         <Col xs={6}>
           <EditableCard

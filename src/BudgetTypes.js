@@ -1,39 +1,20 @@
+import { useState, useEffect } from "react";
 import Form from "react-bootstrap/Form";
-
-const budgetTypes = [
-  {
-    title: "Bills",
-    key: "bills",
-  },
-  {
-    title: "Commmute",
-    key: "commute",
-  },
-  {
-    title: "Eating out",
-    key: "eatingout",
-  },
-  {
-    title: "Groceries",
-    key: "groceries",
-  },
-  {
-    title: "Health",
-    key: "health",
-  },
-  {
-    title: "Shopping",
-    key: "shopping",
-  },
-  {
-    title: "Exception",
-    key: "exception",
-  },
-];
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
 export default function BudgetTypes(props) {
+  const [budgetTypes, setBudgetTypes] = useState([]);
+  const { remoteBudgets, setSelectedBudgetType } = props;
+
+  useEffect(() => {
+    setBudgetTypes(remoteBudgets);
+  }, [remoteBudgets, setBudgetTypes]);
+
   function handleChange(e) {
-    props.setSelectedBudgetType(e.target.value);
+    setSelectedBudgetType(e.target.value);
   }
 
   const options = budgetTypes.map((budgetType) => {
@@ -44,6 +25,7 @@ export default function BudgetTypes(props) {
       </option>
     );
   });
+
   return (
     <div>
       <span className="category-dropdown-label">Choose a category</span>
@@ -60,7 +42,75 @@ export default function BudgetTypes(props) {
   );
 }
 
-export function getBudgetTitle(key) {
-  const matched = budgetTypes.filter((item) => item.key === key);
-  return matched && matched.length ? matched[0].title : "Unknown";
+export function getBudgetTitle(budgetTypes, key) {
+  if (key) {
+    const matched = budgetTypes.filter((item) => {
+      return item.key === key;
+    });
+    return matched[0].title;
+  }
+  return "Unknown";
+}
+
+export function BudgetTypesEditor(props) {
+  const {
+    handleAmountChange,
+    handleDescriptionChange,
+    handleTrackExpenseClick,
+    onHide,
+    selectedBudgetType,
+  } = props;
+  return (
+    <Modal
+      {...props}
+      size="lg"
+      aria-labelledby="contained-modal-title-vcenter"
+      centered
+      className="add-modal"
+    >
+      <Modal.Header closeButton>
+        <Modal.Title id="contained-modal-title-vcenter">
+          Category setting
+        </Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <Row>
+          <Col xs={12}>
+            <Form.Control
+              data-bs-theme="dark"
+              size="lg"
+              type="number"
+              placeholder="Insert amount spent"
+              pattern={"[0-9]*"}
+              inputMode={"numeric"}
+              onChange={handleAmountChange}
+            />
+          </Col>
+          <Col xs={12}>
+            <Form.Control
+              data-bs-theme="dark"
+              size="lg"
+              type="text"
+              placeholder="Write some description (optional)"
+              onChange={handleDescriptionChange}
+            />
+          </Col>
+        </Row>
+      </Modal.Body>
+      <Modal.Footer>
+        <Button variant="secondary" onClick={onHide}>
+          Cancel
+        </Button>
+        <Button
+          className="money-green"
+          onClick={() => {
+            handleTrackExpenseClick();
+            onHide();
+          }}
+        >
+          Submit
+        </Button>
+      </Modal.Footer>
+    </Modal>
+  );
 }

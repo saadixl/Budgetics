@@ -8,7 +8,6 @@ export default function BalanceCard(props) {
   const lowBalance =
     denominator && amount / denominator <= 0.33 ? "low-balance" : "";
   const splittedAmount = amount.toFixed(2).split(".");
-  console.log("lowBalance", lowBalance);
   const styledAmount = (
     <>
       <span>{splittedAmount[0]}</span>.

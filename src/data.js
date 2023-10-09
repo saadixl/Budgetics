@@ -3,22 +3,32 @@ import { onValue, ref, set, child, get, push } from "firebase/database";
 
 const DEFAULT_BUDGET_TEMPLATE = {
   bills: {
-    budget: 150,
+    budget: 100,
+    title: "Bills",
   },
   commute: {
-    budget: 60,
+    budget: 200,
+    title: "Commute",
   },
   eatingout: {
-    budget: 120,
+    budget: 300,
+    title: "Eating out",
+  },
+  exception: {
+    budget: 400,
+    title: "Exception",
   },
   groceries: {
     budget: 500,
+    title: "Groceries",
   },
   health: {
-    budget: 200,
+    budget: 600,
+    title: "Health",
   },
   shopping: {
-    budget: 100,
+    budget: 700,
+    title: "Shopping",
   },
 };
 
@@ -34,12 +44,41 @@ function calculateTotalBalance(data, setTotalBalance) {
   }
 }
 
-export function getBudgets(uid, set, setTotalBalance) {
+export function getBudgetTemplate(uid, set) {
+  if (uid) {
+    const dbRef = ref(db);
+    get(child(dbRef, `budgetTemplates/${uid}`)).then((snapshot) => {
+      let templateData;
+      if (snapshot.exists()) {
+        const data = snapshot.val();
+        const list = Object.keys(data).map((key) => {
+          const item = data[key];
+          return {
+            ...item,
+            key,
+          };
+        });
+        set(list);
+      } else {
+        set([]);
+      }
+    });
+  }
+}
+
+export function getCurrentMonthsBudgets(uid, set, setTotalBalance) {
   if (uid) {
     const query = ref(db, `budgetInstances/${uid}`);
     return onValue(query, (snapshot) => {
       const data = snapshot.val();
       if (snapshot.exists()) {
+        const remoteBudgets = Object.keys(data).map((type) => {
+          const budgetValue = data[type].budget;
+          return {
+            key: type,
+            value: budgetValue,
+          };
+        });
         set(data);
         calculateTotalBalance(data, setTotalBalance);
       }
