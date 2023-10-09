@@ -11,6 +11,7 @@ export default function Header(props) {
     cleanUpOldData,
     handleResetMonth,
     handleArchiveMonth,
+    handleShowBudgetEditor,
   } = props;
 
   const handleSignoutClick = () => {
@@ -39,6 +40,9 @@ export default function Header(props) {
               </Dropdown.Toggle>
 
               <Dropdown.Menu>
+                <Dropdown.Item onClick={handleShowBudgetEditor}>
+                  Edit budgets
+                </Dropdown.Item>
                 <Dropdown.Item onClick={handleResetMonth}>
                   Reset month
                 </Dropdown.Item>

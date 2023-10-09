@@ -218,3 +218,8 @@ body {
 .low-balance {
   color: #800020;
 }
+
+.budget-category-delete-icon {
+  margin-top: 15px;
+  cursor: pointer;
+}

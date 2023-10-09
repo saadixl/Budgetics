@@ -15,6 +15,7 @@ import {
   updateBudget,
   archiveMonth,
   getBudgetTemplate,
+  updateBudgetTemplate,
 } from "./data";
 import { showAlert } from "./utils";
 import { signInWithGoogle } from "./auth";
@@ -31,6 +32,7 @@ function App() {
   const [showAddModal, setShowAddModal] = useState(false);
   const [showCategoryEditorModal, setShowCategoryEditorModal] = useState(false);
   const [remoteBudgets, setRemoteBudgets] = useState([]);
+  const [dirtyBudgetUpdate, setDirtyBudgetUpdate] = useState(Date.now());
 
   const cleanUpOldData = () => {
     setBudgetTypes({});
@@ -59,7 +61,7 @@ function App() {
   useEffect(() => {
     getCurrentMonthsBudgets(currentUid, setBudgetTypes, setTotalBalance);
     getBudgetTemplate(currentUid, setRemoteBudgets);
-  }, [currentUid]);
+  }, [currentUid, dirtyBudgetUpdate]);
 
   const handleAmountChange = (e) => {
     setAmount(e.target.value);
@@ -109,6 +111,10 @@ function App() {
     signInWithGoogle(setCurrentUser);
   };
 
+  const handleShowBudgetEditor = () => {
+    setShowCategoryEditorModal(true);
+  };
+
   const {
     budget = 0,
     current = 0,
@@ -125,6 +131,7 @@ function App() {
           cleanUpOldData={cleanUpOldData}
           handleResetMonth={handleResetMonth}
           handleArchiveMonth={handleArchiveMonth}
+          handleShowBudgetEditor={handleShowBudgetEditor}
         />
         <i
           onClick={() => {
@@ -142,7 +149,16 @@ function App() {
           handleTrackExpenseClick={handleTrackExpenseClick}
           selectedBudgetType={selectedBudgetType}
         />
-        <BudgetTypesEditor show={showCategoryEditorModal} />
+        <BudgetTypesEditor
+          uid={currentUid}
+          show={showCategoryEditorModal}
+          remoteBudgets={remoteBudgets}
+          setDirtyBudgetUpdate={setDirtyBudgetUpdate}
+          updateBudgetTemplate={updateBudgetTemplate}
+          onHide={() => {
+            setShowCategoryEditorModal(false);
+          }}
+        />
         <ToastContainer />
         <Col xs={12}>
           <BalanceCard

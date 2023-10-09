@@ -48,7 +48,6 @@ export function getBudgetTemplate(uid, set) {
   if (uid) {
     const dbRef = ref(db);
     get(child(dbRef, `budgetTemplates/${uid}`)).then((snapshot) => {
-      let templateData;
       if (snapshot.exists()) {
         const data = snapshot.val();
         const list = Object.keys(data).map((key) => {
@@ -72,13 +71,6 @@ export function getCurrentMonthsBudgets(uid, set, setTotalBalance) {
     return onValue(query, (snapshot) => {
       const data = snapshot.val();
       if (snapshot.exists()) {
-        const remoteBudgets = Object.keys(data).map((type) => {
-          const budgetValue = data[type].budget;
-          return {
-            key: type,
-            value: budgetValue,
-          };
-        });
         set(data);
         calculateTotalBalance(data, setTotalBalance);
       }
@@ -98,6 +90,21 @@ export function updateCurrent(uid, payload) {
         amount: amountForHistory,
       });
     }
+  }
+}
+
+export function updateBudgetTemplate(uid, templateArr) {
+  console.log("uid templateArr", uid, templateArr);
+  if (uid && templateArr) {
+    const templateObj = {};
+    templateArr.forEach((item) => {
+      const { budget, title, key } = item;
+      templateObj[key] = {
+        budget,
+        title,
+      };
+    });
+    set(ref(db, `budgetTemplates/${uid}`), templateObj);
   }
 }
 

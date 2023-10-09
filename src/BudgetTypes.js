@@ -4,6 +4,7 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import { showAlert } from "./utils";
 
 export default function BudgetTypes(props) {
   const [budgetTypes, setBudgetTypes] = useState([]);
@@ -54,12 +55,94 @@ export function getBudgetTitle(budgetTypes, key) {
 
 export function BudgetTypesEditor(props) {
   const {
-    handleAmountChange,
-    handleDescriptionChange,
-    handleTrackExpenseClick,
+    uid,
+    remoteBudgets,
+    updateBudgetTemplate,
     onHide,
-    selectedBudgetType,
+    setDirtyBudgetUpdate,
   } = props;
+  const [localBudgets, setLocalBudgets] = useState([]);
+  useEffect(() => {
+    setLocalBudgets(remoteBudgets);
+  }, [remoteBudgets, setLocalBudgets]);
+
+  const handleChange = (e, key, target) => {
+    let localBudgetsClone = [...localBudgets];
+    for (let i = 0; i < localBudgetsClone.length; i++) {
+      if (localBudgetsClone[i].key === key) {
+        const newValue = e.target.value;
+        if (target === "title") {
+          localBudgetsClone[i].title = newValue;
+          localBudgetsClone[i].key = newValue.split(" ").join("").toLowerCase();
+        } else if (target === "budget") {
+          localBudgetsClone[i].budget = parseFloat(newValue);
+        }
+        setLocalBudgets(localBudgetsClone);
+        break;
+      }
+    }
+  };
+
+  const handleDelete = (key) => {
+    let newLocalBudgets = localBudgets.filter((x) => x.key !== key);
+    setLocalBudgets(newLocalBudgets);
+  };
+
+  const handleNew = () => {
+    setLocalBudgets([
+      ...localBudgets,
+      {
+        title: "New budget",
+        key: "newbudget",
+        budget: 0,
+      },
+    ]);
+  };
+
+  const update = () => {
+    updateBudgetTemplate(uid, localBudgets);
+    showAlert("Budget categories updated");
+    setDirtyBudgetUpdate(Date.now());
+    onHide();
+  };
+
+  const fieldRows = localBudgets.map((item) => {
+    const { budget, title, key } = item;
+    return (
+      <Row>
+        <Col xs={7}>
+          <Form.Control
+            data-bs-theme="dark"
+            size="lg"
+            type="text"
+            placeholder="Category"
+            value={title}
+            onChange={(e) => {
+              handleChange(e, key, "title");
+            }}
+          />
+        </Col>
+        <Col xs={4}>
+          <Form.Control
+            data-bs-theme="dark"
+            size="lg"
+            type="number"
+            value={budget}
+            placeholder="Amount"
+            onChange={(e) => {
+              handleChange(e, key, "budget");
+            }}
+          />
+        </Col>
+        <Col xs={1}>
+          <i
+            onClick={() => handleDelete(key)}
+            className="fa-solid fa-xmark budget-category-delete-icon"
+          ></i>
+        </Col>
+      </Row>
+    );
+  });
   return (
     <Modal
       {...props}
@@ -70,45 +153,19 @@ export function BudgetTypesEditor(props) {
     >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
-          Category setting
+          Budget category setting
         </Modal.Title>
       </Modal.Header>
-      <Modal.Body>
-        <Row>
-          <Col xs={12}>
-            <Form.Control
-              data-bs-theme="dark"
-              size="lg"
-              type="number"
-              placeholder="Insert amount spent"
-              pattern={"[0-9]*"}
-              inputMode={"numeric"}
-              onChange={handleAmountChange}
-            />
-          </Col>
-          <Col xs={12}>
-            <Form.Control
-              data-bs-theme="dark"
-              size="lg"
-              type="text"
-              placeholder="Write some description (optional)"
-              onChange={handleDescriptionChange}
-            />
-          </Col>
-        </Row>
-      </Modal.Body>
+      <Modal.Body>{fieldRows}</Modal.Body>
       <Modal.Footer>
         <Button variant="secondary" onClick={onHide}>
           Cancel
         </Button>
-        <Button
-          className="money-green"
-          onClick={() => {
-            handleTrackExpenseClick();
-            onHide();
-          }}
-        >
-          Submit
+        <Button variant="primary" onClick={handleNew}>
+          Add new
+        </Button>
+        <Button variant="success" onClick={update}>
+          Update
         </Button>
       </Modal.Footer>
     </Modal>
