@@ -94,7 +94,6 @@ export function updateCurrent(uid, payload) {
 }
 
 export function updateBudgetTemplate(uid, templateArr) {
-  console.log("uid templateArr", uid, templateArr);
   if (uid && templateArr) {
     const templateObj = {};
     templateArr.forEach((item) => {
@@ -103,6 +102,8 @@ export function updateBudgetTemplate(uid, templateArr) {
         budget,
         title,
       };
+      // TODO: This needs to be optimised
+      set(ref(db, `budgetInstances/${uid}/${key}/budget`), budget);
     });
     set(ref(db, `budgetTemplates/${uid}`), templateObj);
   }

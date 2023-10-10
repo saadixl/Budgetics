@@ -48,7 +48,9 @@ export function getBudgetTitle(budgetTypes, key) {
     const matched = budgetTypes.filter((item) => {
       return item.key === key;
     });
-    return matched[0].title;
+    if (matched && matched.length) {
+      return matched[0].title;
+    }
   }
   return "Unknown";
 }
