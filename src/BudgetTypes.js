@@ -111,7 +111,7 @@ export function BudgetTypesEditor(props) {
   const fieldRows = localBudgets.map((item) => {
     const { budget, title, key } = item;
     return (
-      <Row>
+      <Row key={key}>
         <Col xs={7}>
           <Form.Control
             data-bs-theme="dark"
