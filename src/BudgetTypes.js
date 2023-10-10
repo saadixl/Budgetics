@@ -75,7 +75,6 @@ export function BudgetTypesEditor(props) {
         const newValue = e.target.value;
         if (target === "title") {
           localBudgetsClone[i].title = newValue;
-          localBudgetsClone[i].key = newValue.split(" ").join("").toLowerCase();
         } else if (target === "budget") {
           localBudgetsClone[i].budget = parseFloat(newValue);
         }
@@ -94,8 +93,8 @@ export function BudgetTypesEditor(props) {
     setLocalBudgets([
       ...localBudgets,
       {
-        title: "New budget",
-        key: "newbudget",
+        title: "",
+        key: `newbudget-${Date.now()}`,
         budget: 0,
       },
     ]);

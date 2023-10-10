@@ -97,13 +97,14 @@ export function updateBudgetTemplate(uid, templateArr) {
   if (uid && templateArr) {
     const templateObj = {};
     templateArr.forEach((item) => {
-      const { budget, title, key } = item;
-      templateObj[key] = {
+      const { budget, title } = item;
+      const finalKey = title.split(" ").join("").toLowerCase();
+      templateObj[finalKey] = {
         budget,
         title,
       };
       // TODO: This needs to be optimised
-      set(ref(db, `budgetInstances/${uid}/${key}/budget`), budget);
+      set(ref(db, `budgetInstances/${uid}/${finalKey}/budget`), budget);
     });
     set(ref(db, `budgetTemplates/${uid}`), templateObj);
   }
