@@ -224,6 +224,7 @@ body {
   cursor: pointer;
 }
 
-.chart-wrapper {
+.chart-wrapper,
+.history-wrapper {
   margin-bottom: 20px;
 }

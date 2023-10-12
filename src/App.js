@@ -8,7 +8,7 @@ import Header from "./Header";
 import BudgetTypes, { getBudgetTitle, BudgetTypesEditor } from "./BudgetTypes";
 import BalanceCard, { EditableCard } from "./BalanceCard";
 import History from "./History";
-import Chart from "./Chart";
+import { AllBudgetsChart } from "./Chart";
 import {
   getCurrentMonthsBudgets,
   updateCurrent,
@@ -123,7 +123,6 @@ function App() {
   } = budgetTypes[selectedBudgetType] || {};
 
   const chartData = getChartData(budgetTypes);
-  console.log("chartData", chartData);
 
   return (
     <Container>
@@ -200,9 +199,14 @@ function App() {
             editOperation={updateCurrent}
           />
         </Col>
-        <Col xs={12}>
-          <Chart title="Monthly spent vs budget statistics" chartData={chartData}/>
-        </Col>
+        {selectedBudgetType ? null : (
+          <Col xs={12}>
+            <AllBudgetsChart
+              title="Current months statistics for all budgets"
+              chartData={chartData}
+            />
+          </Col>
+        )}
         <Col xs={12}>
           <History
             uid={currentUid}

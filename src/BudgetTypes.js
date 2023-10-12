@@ -36,7 +36,7 @@ export default function BudgetTypes(props) {
         aria-label="Default select example"
         size="lg"
       >
-        <option value="">Select a budget type</option>
+        <option value="">-- NONE --</option>
         {options}
       </Form.Select>
     </div>

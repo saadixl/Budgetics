@@ -4,6 +4,7 @@ import Card from "react-bootstrap/Card";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { deleteHistory } from "./data";
+import { HistoryChart } from "./Chart";
 import { showAlert } from "./utils";
 
 export default function History(props) {
@@ -35,11 +36,28 @@ export default function History(props) {
     }
   };
 
+  let dataForChart = {},
+    historyChart = null;
+
   if (history) {
     historyComp = Object.keys(history)
       .reverse()
       .map((key) => {
         const { amount, description, timestamp } = history[key];
+        const dateObj = new Date(timestamp);
+        const theDate = dateObj.getDate();
+        const date = `${theDate}/${dateObj.getMonth()}`;
+        if (!dataForChart[theDate]) {
+          dataForChart[theDate] = {
+            date,
+            amount,
+          };
+        } else {
+          dataForChart[theDate] = {
+            date,
+            amount: dataForChart[theDate].amount + amount,
+          };
+        }
         return (
           <Row key={key} className="history-item-row small">
             <Col xs={8}>
@@ -60,14 +78,31 @@ export default function History(props) {
           </Row>
         );
       });
+
+    const labels = [],
+      data1 = [];
+    Object.keys(dataForChart).forEach((key) => {
+      const { amount, date } = dataForChart[key];
+      labels.push(date);
+      data1.push(amount);
+    });
+    historyChart = (
+      <HistoryChart
+        chartData={{ labels, data1 }}
+        title={`Daily spends on ${selectedBudgetType}`}
+      />
+    );
   }
 
   return (
-    <Card data-bs-theme="dark">
-      <Card.Body>
-        <Card.Title className="history-header">{title}</Card.Title>
-        {historyComp}
-      </Card.Body>
-    </Card>
+    <>
+      {historyChart}
+      <Card data-bs-theme="dark">
+        <Card.Body>
+          <Card.Title className="history-header">{title}</Card.Title>
+          {historyComp}
+        </Card.Body>
+      </Card>
+    </>
   );
 }
