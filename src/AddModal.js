@@ -33,8 +33,6 @@ function AddModal(props) {
               size="lg"
               type="number"
               placeholder="Insert amount spent"
-              pattern={"[0-9]*"}
-              inputMode={"numeric"}
               onChange={handleAmountChange}
             />
           </Col>
