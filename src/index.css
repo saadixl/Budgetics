@@ -223,3 +223,7 @@ body {
   margin-top: 15px;
   cursor: pointer;
 }
+
+.chart-wrapper {
+  margin-bottom: 20px;
+}

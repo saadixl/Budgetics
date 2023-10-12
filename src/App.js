@@ -8,6 +8,7 @@ import Header from "./Header";
 import BudgetTypes, { getBudgetTitle, BudgetTypesEditor } from "./BudgetTypes";
 import BalanceCard, { EditableCard } from "./BalanceCard";
 import History from "./History";
+import Chart from "./Chart";
 import {
   getCurrentMonthsBudgets,
   updateCurrent,
@@ -17,7 +18,7 @@ import {
   getBudgetTemplate,
   updateBudgetTemplate,
 } from "./data";
-import { showAlert } from "./utils";
+import { showAlert, getChartData } from "./utils";
 import { signInWithGoogle } from "./auth";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -121,6 +122,9 @@ function App() {
     history,
   } = budgetTypes[selectedBudgetType] || {};
 
+  const chartData = getChartData(budgetTypes);
+  console.log("chartData", chartData);
+
   return (
     <Container>
       <div className="header-on-background"></div>
@@ -195,6 +199,9 @@ function App() {
             selectedBudgetType={selectedBudgetType}
             editOperation={updateCurrent}
           />
+        </Col>
+        <Col xs={12}>
+          <Chart title="Monthly spent vs budget statistics" chartData={chartData}/>
         </Col>
         <Col xs={12}>
           <History
