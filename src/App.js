@@ -17,6 +17,7 @@ import {
   archiveMonth,
   getBudgetTemplate,
   updateBudgetTemplate,
+  deleteBudget,
 } from "./data";
 import { showAlert, getChartData } from "./utils";
 import { signInWithGoogle } from "./auth";
@@ -161,6 +162,7 @@ function App() {
           onHide={() => {
             setShowCategoryEditorModal(false);
           }}
+          deleteBudget={deleteBudget}
         />
         <ToastContainer />
         <Col xs={12}>

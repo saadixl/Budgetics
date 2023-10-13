@@ -62,6 +62,7 @@ export function BudgetTypesEditor(props) {
     updateBudgetTemplate,
     onHide,
     setDirtyBudgetUpdate,
+    deleteBudget,
   } = props;
   const [localBudgets, setLocalBudgets] = useState([]);
   useEffect(() => {
@@ -85,8 +86,16 @@ export function BudgetTypesEditor(props) {
   };
 
   const handleDelete = (key) => {
-    let newLocalBudgets = localBudgets.filter((x) => x.key !== key);
-    setLocalBudgets(newLocalBudgets);
+    const confirm = window.confirm(
+      "Are you sure you want to delete this budget and all related data?",
+    );
+    if (confirm) {
+      deleteBudget(uid, key);
+      let newLocalBudgets = localBudgets.filter((x) => x.key !== key);
+      setLocalBudgets(newLocalBudgets);
+      showAlert("Budget category & it's data deleted", "error");
+      setDirtyBudgetUpdate(Date.now());
+    }
   };
 
   const handleNew = () => {

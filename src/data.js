@@ -95,6 +95,7 @@ export function updateCurrent(uid, payload) {
 
 export function updateBudgetTemplate(uid, templateArr) {
   if (uid && templateArr) {
+    console.log("templateArr", templateArr);
     const templateObj = {};
     templateArr.forEach((item) => {
       const { budget, title } = item;
@@ -116,6 +117,14 @@ export function updateBudget(uid, { amount, budget }) {
     const budgetPath = `${uid}/${budget}/budget`;
     set(ref(db, `budgetInstances/${budgetPath}`), value);
     set(ref(db, `budgetTemplates/${budgetPath}`), value);
+  }
+}
+
+export function deleteBudget(uid, budget) {
+  const budgetPath = `${uid}/${budget}/`;
+  if (uid && budget) {
+    set(ref(db, `budgetInstances/${budgetPath}`), null);
+    set(ref(db, `budgetTemplates/${budgetPath}`), null);
   }
 }
 
