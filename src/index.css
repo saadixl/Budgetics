@@ -228,3 +228,28 @@ body {
 .history-wrapper {
   margin-bottom: 20px;
 }
+
+select.budget-type-selector {
+  display: inline;
+  width: 120px;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  font-size: 16px;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.add-modal-title {
+  font-size: 16px;
+}
+
+.budget-type-wrapper .budget-type-selector {
+  clear: both;
+  display: block;
+  width: 100%;
+  margin: 0;
+  margin-bottom: 15px;
+  font-size: 20px;
+  padding: 5px 10px;
+}

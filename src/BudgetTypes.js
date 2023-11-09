@@ -6,43 +6,6 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { showAlert } from "./utils";
 
-export default function BudgetTypes(props) {
-  const [budgetTypes, setBudgetTypes] = useState([]);
-  const { remoteBudgets, setSelectedBudgetType } = props;
-
-  useEffect(() => {
-    setBudgetTypes(remoteBudgets);
-  }, [remoteBudgets, setBudgetTypes]);
-
-  function handleChange(e) {
-    setSelectedBudgetType(e.target.value);
-  }
-
-  const options = budgetTypes.map((budgetType) => {
-    const { title, key } = budgetType;
-    return (
-      <option key={key} value={key}>
-        {title}
-      </option>
-    );
-  });
-
-  return (
-    <div>
-      <span className="category-dropdown-label">Choose a category</span>
-      <Form.Select
-        onChange={handleChange}
-        data-bs-theme="dark"
-        aria-label="Default select example"
-        size="lg"
-      >
-        <option value="">-- NONE --</option>
-        {options}
-      </Form.Select>
-    </div>
-  );
-}
-
 export function getBudgetTitle(budgetTypes, key) {
   if (key) {
     const matched = budgetTypes.filter((item) => {
@@ -179,5 +142,39 @@ export function BudgetTypesEditor(props) {
         </Button>
       </Modal.Footer>
     </Modal>
+  );
+}
+
+export function BudgetTypeSelector(props) {
+  const { selectedBudgetType, remoteBudgets, onChange } = props;
+  const [selected, setSelected] = useState("");
+  useEffect(() => {
+    setSelected(selectedBudgetType);
+  }, [remoteBudgets, setSelected, selectedBudgetType]);
+  const options = remoteBudgets.map((rb, i) => {
+    const { title, key } = rb;
+    return (
+      <option key={i} value={key}>
+        {title}
+      </option>
+    );
+  });
+  options.unshift(<option value="">NONE</option>);
+
+  return (
+    <>
+      <Form.Select
+        value={selected}
+        onChange={(e) => {
+          onChange(e.target.value);
+        }}
+        className="budget-type-selector"
+        data-bs-theme="dark"
+        size="sm"
+        aria-label="Default select example"
+      >
+        {options}
+      </Form.Select>
+    </>
   );
 }

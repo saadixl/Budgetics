@@ -3,6 +3,7 @@ import Modal from "react-bootstrap/Modal";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
+import { BudgetTypeSelector } from "./BudgetTypes";
 
 function AddModal(props) {
   const {
@@ -11,7 +12,14 @@ function AddModal(props) {
     handleTrackExpenseClick,
     onHide,
     selectedBudgetType,
+    remoteBudgets,
+    setSelectedBudgetType,
   } = props;
+
+  const handleBudgetTypeSelect = (selected) => {
+    setSelectedBudgetType(selected);
+  };
+
   return (
     <Modal
       {...props}
@@ -21,8 +29,17 @@ function AddModal(props) {
       className="add-modal"
     >
       <Modal.Header closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">
-          Add new {selectedBudgetType} expense
+        <Modal.Title
+          id="contained-modal-title-vcenter"
+          className="add-modal-title"
+        >
+          Add new{" "}
+          <BudgetTypeSelector
+            onChange={handleBudgetTypeSelect}
+            remoteBudgets={remoteBudgets}
+            selectedBudgetType={selectedBudgetType}
+          />{" "}
+          expense
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
@@ -52,6 +69,7 @@ function AddModal(props) {
           Cancel
         </Button>
         <Button
+          disabled={selectedBudgetType === ""}
           className="money-green"
           onClick={() => {
             handleTrackExpenseClick();
