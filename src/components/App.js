@@ -6,7 +6,6 @@ import { ToastContainer } from "react-toastify";
 import AddModal from "./AddModal";
 import Header from "./Header";
 import {
-  getBudgetTitle,
   BudgetTypesEditor,
   BudgetTypeSelector,
 } from "./BudgetTypes";
@@ -22,9 +21,9 @@ import {
   getBudgetTemplate,
   updateBudgetTemplate,
   deleteBudget,
-} from "./data";
-import { showAlert, getChartData } from "./utils";
-import { signInWithGoogle } from "./auth";
+} from "../services/api";
+import { showAlert, getChartData, getBudgetTitle } from "../services/utils";
+import { signInWithGoogle } from "../services/auth";
 import "react-toastify/dist/ReactToastify.css";
 
 function App() {

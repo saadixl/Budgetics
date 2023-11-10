@@ -2,7 +2,7 @@ import Button from "react-bootstrap/Button";
 import Dropdown from "react-bootstrap/Dropdown";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import { signOut } from "./auth";
+import { signOut } from "../services/auth";
 
 export default function Header(props) {
   const {

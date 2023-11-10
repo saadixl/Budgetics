@@ -3,9 +3,9 @@ import moment from "moment";
 import Card from "react-bootstrap/Card";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import { deleteHistory, moveHistory } from "./data";
+import { deleteHistory, moveHistory } from "../services/api";
 import { HistoryChart } from "./Chart";
-import { showAlert } from "./utils";
+import { showAlert } from "../services/utils";
 import { BudgetTypeSelector } from "./BudgetTypes";
 
 export default function History(props) {

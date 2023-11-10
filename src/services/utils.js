@@ -40,3 +40,18 @@ export const getChartData = (currentMonthBudget) => {
     };
   }
 };
+
+export function getBudgetTitle(budgetTypes, key) {
+  if (typeof budgetTypes === "string") {
+    return budgetTypes;
+  }
+  if (key) {
+    const matched = budgetTypes.filter((item) => {
+      return item.key === key;
+    });
+    if (matched && matched.length) {
+      return matched[0].title;
+    }
+  }
+  return "Unknown";
+}

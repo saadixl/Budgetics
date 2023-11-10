@@ -4,22 +4,7 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import { showAlert } from "./utils";
-
-export function getBudgetTitle(budgetTypes, key) {
-  if (typeof budgetTypes === "string") {
-    return budgetTypes;
-  }
-  if (key) {
-    const matched = budgetTypes.filter((item) => {
-      return item.key === key;
-    });
-    if (matched && matched.length) {
-      return matched[0].title;
-    }
-  }
-  return "Unknown";
-}
+import { showAlert } from "../services/utils";
 
 export function BudgetTypesEditor(props) {
   const {
