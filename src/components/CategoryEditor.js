@@ -6,7 +6,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { showAlert } from "../services/utils";
 
-export function BudgetTypesEditor(props) {
+export default function CategoryEditor(props) {
   const {
     uid,
     remoteBudgets,
@@ -114,7 +114,7 @@ export function BudgetTypesEditor(props) {
     >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
-          Budget category setting
+          Budget category editor
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>{fieldRows}</Modal.Body>
@@ -130,39 +130,5 @@ export function BudgetTypesEditor(props) {
         </Button>
       </Modal.Footer>
     </Modal>
-  );
-}
-
-export function BudgetTypeSelector(props) {
-  const { selectedBudgetType, remoteBudgets, onChange } = props;
-  const [selected, setSelected] = useState("");
-  useEffect(() => {
-    setSelected(selectedBudgetType);
-  }, [remoteBudgets, setSelected, selectedBudgetType]);
-  const options = remoteBudgets.map((rb, i) => {
-    const { title, key } = rb;
-    return (
-      <option key={i} value={key}>
-        {title}
-      </option>
-    );
-  });
-  options.unshift(<option value="">NONE</option>);
-
-  return (
-    <>
-      <Form.Select
-        value={selected}
-        onChange={(e) => {
-          onChange(e.target.value);
-        }}
-        className="budget-type-selector"
-        data-bs-theme="dark"
-        size="sm"
-        aria-label="Default select example"
-      >
-        {options}
-      </Form.Select>
-    </>
   );
 }

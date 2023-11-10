@@ -6,7 +6,7 @@ import Col from "react-bootstrap/Col";
 import { deleteHistory, moveHistory } from "../services/api";
 import { HistoryChart } from "./Chart";
 import { showAlert } from "../services/utils";
-import { BudgetTypeSelector } from "./BudgetTypes";
+import CategorySelector from "./CategorySelector";
 
 export default function History(props) {
   const {
@@ -109,7 +109,7 @@ export default function History(props) {
               ></i>
             </Col>
             <Col xs={12} className="history-budget-type-seelctor-col">
-              <BudgetTypeSelector
+              <CategorySelector
                 onChange={(newBudgetType) => {
                   handleHistoryMove({
                     key,

@@ -3,7 +3,7 @@ import Modal from "react-bootstrap/Modal";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
-import { BudgetTypeSelector } from "./BudgetTypes";
+import CategorySelector from "./CategorySelector";
 
 function AddModal(props) {
   const {
@@ -34,7 +34,7 @@ function AddModal(props) {
           className="add-modal-title"
         >
           Add new{" "}
-          <BudgetTypeSelector
+          <CategorySelector
             onChange={handleBudgetTypeSelect}
             remoteBudgets={remoteBudgets}
             selectedBudgetType={selectedBudgetType}

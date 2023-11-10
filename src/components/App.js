@@ -5,10 +5,8 @@ import Col from "react-bootstrap/Col";
 import { ToastContainer } from "react-toastify";
 import AddModal from "./AddModal";
 import Header from "./Header";
-import {
-  BudgetTypesEditor,
-  BudgetTypeSelector,
-} from "./BudgetTypes";
+import CategorySelector from "./CategorySelector";
+import CategoryEditor from "./CategoryEditor";
 import BalanceCard, { EditableCard } from "./BalanceCard";
 import History from "./History";
 import { AllBudgetsChart } from "./Chart";
@@ -158,7 +156,7 @@ function App() {
           setSelectedBudgetType={setSelectedBudgetType}
           remoteBudgets={remoteBudgets}
         />
-        <BudgetTypesEditor
+        <CategoryEditor
           uid={currentUid}
           show={showCategoryEditorModal}
           remoteBudgets={remoteBudgets}
@@ -184,7 +182,7 @@ function App() {
         </Col>
         <Col className="budget-type-wrapper" xs={12}>
           <span className="category-dropdown-label">Choose a category</span>
-          <BudgetTypeSelector
+          <CategorySelector
             onChange={setSelectedBudgetType}
             remoteBudgets={remoteBudgets}
             selectedBudgetType={selectedBudgetType}
