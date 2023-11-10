@@ -219,6 +219,8 @@ function App() {
         )}
         <Col xs={12}>
           <History
+            budgetTypes={budgetTypes}
+            remoteBudgets={remoteBudgets}
             uid={currentUid}
             data={history}
             current={current}

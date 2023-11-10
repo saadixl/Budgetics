@@ -3,12 +3,21 @@ import moment from "moment";
 import Card from "react-bootstrap/Card";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import { deleteHistory } from "./data";
+import { deleteHistory, moveHistory } from "./data";
 import { HistoryChart } from "./Chart";
 import { showAlert } from "./utils";
+import { BudgetTypeSelector } from "./BudgetTypes";
 
 export default function History(props) {
-  const { data, title, selectedBudgetType, current = 0, uid } = props;
+  const {
+    data,
+    title,
+    selectedBudgetType,
+    current = 0,
+    uid,
+    remoteBudgets,
+    budgetTypes,
+  } = props;
   const [history, setHistory] = useState();
 
   useEffect(() => {
@@ -33,6 +42,30 @@ export default function History(props) {
         key,
       });
       showAlert("Expense history deleted", "warning");
+    }
+  };
+
+  const handleHistoryMove = ({
+    key,
+    amount,
+    current,
+    newBudgetType,
+    description,
+  }) => {
+    if (selectedBudgetType !== newBudgetType) {
+      moveHistory(uid, {
+        key,
+        amount,
+        oldCurrent: current,
+        oldBudgetType: selectedBudgetType,
+        newBudgetType,
+        newCurrent: budgetTypes[newBudgetType].current,
+        description,
+      });
+      showAlert(
+        `Expense history moved to ${budgetTypes[newBudgetType].title}`,
+        "warning",
+      );
     }
   };
 
@@ -74,6 +107,21 @@ export default function History(props) {
                 onClick={() => handleDeleteHistory(key, amount, current)}
                 className="fa-solid fa-xmark"
               ></i>
+            </Col>
+            <Col xs={12} className="history-budget-type-seelctor-col">
+              <BudgetTypeSelector
+                onChange={(newBudgetType) => {
+                  handleHistoryMove({
+                    key,
+                    amount,
+                    current,
+                    newBudgetType,
+                    description,
+                  });
+                }}
+                remoteBudgets={remoteBudgets}
+                selectedBudgetType={selectedBudgetType}
+              />
             </Col>
           </Row>
         );

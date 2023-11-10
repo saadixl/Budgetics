@@ -7,6 +7,9 @@ import Col from "react-bootstrap/Col";
 import { showAlert } from "./utils";
 
 export function getBudgetTitle(budgetTypes, key) {
+  if (typeof budgetTypes === "string") {
+    return budgetTypes;
+  }
   if (key) {
     const matched = budgetTypes.filter((item) => {
       return item.key === key;

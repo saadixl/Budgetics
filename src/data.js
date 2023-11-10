@@ -155,6 +155,32 @@ export function deleteHistory(uid, { amount, budget, key, current }) {
   }
 }
 
+export function moveHistory(
+  uid,
+  {
+    key,
+    amount,
+    oldCurrent,
+    oldBudgetType,
+    newCurrent = 0,
+    newBudgetType,
+    description,
+  },
+) {
+  updateCurrent(uid, {
+    amount: parseFloat(amount) + parseFloat(newCurrent),
+    description,
+    amountForHistory: parseFloat(amount),
+    budget: newBudgetType,
+  });
+  deleteHistory(uid, {
+    amount,
+    budget: oldBudgetType,
+    key,
+    current: oldCurrent,
+  });
+}
+
 export function archiveMonth(uid) {
   if (uid) {
     const dbRef = ref(db);
