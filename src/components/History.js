@@ -93,13 +93,13 @@ export default function History(props) {
         }
         return (
           <Row key={key} className="history-item-row small">
-            <Col xs={8}>
+            <Col xs={7}>
               <p className="history-datetime">
                 {moment(timestamp).format("DD/MM/YYYY hh:mm A")}
               </p>
               {description}
             </Col>
-            <Col xs={3} className="amount-col">
+            <Col xs={4} className="amount-col">
               ${amount}
             </Col>
             <Col xs={1} className="amount-col">
