@@ -127,7 +127,7 @@ function App() {
   const chartData = getChartData(budgetTypes);
 
   return (
-    <Container>
+    <Container style={{ maxWidth: '900px', margin: '0 auto', paddingTop: '20px' }}>
       <div className="header-on-background"></div>
       <Row>
         <Header
