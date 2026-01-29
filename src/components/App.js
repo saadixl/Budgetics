@@ -143,12 +143,15 @@ function App() {
           handleArchiveMonth={handleArchiveMonth}
           handleShowBudgetEditor={handleShowBudgetEditor}
         />
-        <i
+        <button
           onClick={() => {
             setShowAddModal(true);
           }}
-          className="fa-solid fa-circle-plus sticky-add-btn"
-        ></i>
+          className="sticky-add-btn"
+          aria-label="Add expense"
+        >
+          <i className="fa-solid fa-plus"></i>
+        </button>
         <AddModal
           show={showAddModal}
           onHide={() => {
