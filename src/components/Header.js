@@ -3,6 +3,7 @@ import Dropdown from "react-bootstrap/Dropdown";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { signOut } from "../services/auth";
+import CategorySelector from "./CategorySelector";
 
 export default function Header(props) {
   const {
@@ -12,6 +13,9 @@ export default function Header(props) {
     handleResetMonth,
     handleArchiveMonth,
     handleShowBudgetEditor,
+    remoteBudgets,
+    selectedBudgetType,
+    setSelectedBudgetType,
   } = props;
 
   const handleSignoutClick = () => {
@@ -60,6 +64,17 @@ export default function Header(props) {
             </Dropdown>
           </Col>
         </Row>
+        {remoteBudgets && remoteBudgets.length > 0 && (
+          <Row className="header-category-row">
+            <Col xs={12} className="header-category-col">
+              <CategorySelector
+                onChange={setSelectedBudgetType}
+                remoteBudgets={remoteBudgets}
+                selectedBudgetType={selectedBudgetType}
+              />
+            </Col>
+          </Row>
+        )}
       </Col>
     );
   } else {

@@ -142,6 +142,9 @@ function App() {
           handleResetMonth={handleResetMonth}
           handleArchiveMonth={handleArchiveMonth}
           handleShowBudgetEditor={handleShowBudgetEditor}
+          remoteBudgets={remoteBudgets}
+          selectedBudgetType={selectedBudgetType}
+          setSelectedBudgetType={setSelectedBudgetType}
         />
         <button
           onClick={() => {
@@ -185,14 +188,6 @@ function App() {
               remoteBudgets,
               selectedBudgetType,
             )} balance`}
-          />
-        </Col>
-        <Col className="budget-type-wrapper" xs={12}>
-          <span className="category-dropdown-label">Choose a category</span>
-          <CategorySelector
-            onChange={setSelectedBudgetType}
-            remoteBudgets={remoteBudgets}
-            selectedBudgetType={selectedBudgetType}
           />
         </Col>
         <Col xs={6}>
