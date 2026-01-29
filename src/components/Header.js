@@ -19,14 +19,11 @@ export default function Header(props) {
   };
 
   if (currentUser && currentUser.uid) {
-    const { displayName, photoURL } = currentUser;
+    const { displayName } = currentUser;
     return (
       <Col xs={12} className="header">
         <Row>
-          <Col xs={2}>
-            <img alt="Profile" className="header-img" src={photoURL} />
-          </Col>
-          <Col xs={8}>
+          <Col xs={10}>
             <p className="welcome-back-text">
               Welcome back
               <br />

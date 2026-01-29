@@ -4,21 +4,35 @@ import Form from "react-bootstrap/Form";
 import { showAlert } from "../services/utils";
 
 export default function BalanceCard(props) {
-  const { amount = 0, title, className, secondaryTitle, denominator } = props;
+  const { amount = 0, title, className, secondaryTitle, denominator, isDays = false } = props;
   const lowBalance =
     denominator && amount / denominator <= 0.33 ? "low-balance" : "";
-  const splittedAmount = amount.toFixed(2).split(".");
-  const styledAmount = (
-    <>
-      <span>{splittedAmount[0]}</span>.
-      <span className="amount-after-decimal-point">{splittedAmount[1]}</span>
-    </>
-  );
+  
+  let displayValue;
+  if (isDays) {
+    // For days, show as whole number
+    displayValue = Math.floor(amount);
+  } else {
+    // For money, show with decimal
+    const splittedAmount = amount.toFixed(2).split(".");
+    displayValue = (
+      <>
+        <span>{splittedAmount[0]}</span>.
+        <span className="amount-after-decimal-point">{splittedAmount[1]}</span>
+      </>
+    );
+  }
+  
+  const prefix = isDays ? "" : "$";
+  
   return (
-    <Card data-bs-theme="dark" className={"balance-card " + className}>
+    <Card data-bs-theme="dark" className={"balance-card " + (className || "")}>
       <Card.Body>
         <Card.Text className="small">{title}</Card.Text>
-        <Card.Title className={lowBalance}>${styledAmount}</Card.Title>
+        <Card.Title className={lowBalance}>
+          {prefix}{displayValue}
+          {isDays && <span style={{ fontSize: '60%', marginLeft: '4px' }}>days</span>}
+        </Card.Title>
         <p className="balance-card-secondary">{secondaryTitle}</p>
       </Card.Body>
     </Card>

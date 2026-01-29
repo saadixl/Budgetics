@@ -20,7 +20,7 @@ import {
   updateBudgetTemplate,
   deleteBudget,
 } from "../services/api";
-import { showAlert, getChartData, getBudgetTitle } from "../services/utils";
+import { showAlert, getChartData, getBudgetTitle, calculateDailySpend, calculateDaysRemaining } from "../services/utils";
 import { signInWithGoogle } from "../services/auth";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -125,6 +125,11 @@ function App() {
   } = budgetTypes[selectedBudgetType] || {};
 
   const chartData = getChartData(budgetTypes);
+  
+  // Calculate daily spend and days remaining
+  const dailySpend = selectedBudgetType ? calculateDailySpend(history) : 0;
+  const remainingBudget = budget - current;
+  const daysRemaining = selectedBudgetType ? calculateDaysRemaining(remainingBudget, dailySpend) : null;
 
   return (
     <Container style={{ maxWidth: '900px', margin: '0 auto', paddingTop: '20px' }}>
@@ -177,7 +182,6 @@ function App() {
               remoteBudgets,
               selectedBudgetType,
             )} balance`}
-            secondaryTitle={`Total $${totalBalance.toFixed(2)}`}
           />
         </Col>
         <Col className="budget-type-wrapper" xs={12}>
@@ -206,6 +210,24 @@ function App() {
             editOperation={updateCurrent}
           />
         </Col>
+        {selectedBudgetType && (
+          <>
+            <Col xs={6}>
+              <BalanceCard
+                amount={dailySpend}
+                title="Daily average spend"
+              />
+            </Col>
+            <Col xs={6}>
+              <BalanceCard
+                amount={daysRemaining !== null ? daysRemaining : 0}
+                title={daysRemaining !== null ? "Daily avg will last" : "No spending data"}
+                className={daysRemaining !== null && daysRemaining <= 7 ? "low-balance" : ""}
+                isDays={true}
+              />
+            </Col>
+          </>
+        )}
         {selectedBudgetType ? null : (
           <Col xs={12}>
             <AllBudgetsChart
