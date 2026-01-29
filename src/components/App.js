@@ -140,7 +140,7 @@ function App() {
   const chartData = getChartData(budgetTypes);
 
   return (
-    <Container style={{ maxWidth: '1200px', margin: '0 auto', paddingTop: '24px', paddingBottom: '40px', position: 'relative' }}>
+    <Container className="main-container" style={{ maxWidth: '1200px', margin: '0 auto', paddingTop: '24px', paddingBottom: '40px', position: 'relative' }}>
       <Row style={{ gap: '0' }}>
         <Header
           currentUser={currentUser}

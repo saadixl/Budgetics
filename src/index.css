@@ -21,6 +21,16 @@ body {
   min-height: 100vh;
 }
 
+@media (max-width: 575px) {
+  body {
+    padding-bottom: 24px;
+  }
+
+  .main-container {
+    padding-bottom: 0 !important;
+  }
+}
+
 #root {
   width: 100%;
   max-width: 100%;
@@ -1338,7 +1348,7 @@ body {
 /* Responsive Design */
 @media (max-width: 768px) {
   body {
-    padding: 20px 12px 100px 12px;
+    padding: 20px 12px 0 12px;
   }
 
   .sticky-add-btn {
