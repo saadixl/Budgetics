@@ -519,7 +519,12 @@ body {
 }
 
 .login-btn {
-  margin-bottom: 36px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin: 0;
+  display: block;
   background: linear-gradient(135deg, rgba(0, 188, 212, 0.25) 0%, rgba(0, 172, 193, 0.2) 100%);
   color: #00BCD4;
   box-shadow: 0 2px 8px rgba(0, 188, 212, 0.15);
@@ -527,7 +532,7 @@ body {
 
 .login-btn:hover {
   background: linear-gradient(135deg, rgba(0, 188, 212, 0.35) 0%, rgba(0, 172, 193, 0.3) 100%);
-  transform: translateY(-2px);
+  transform: translate(-50%, -50%);
   box-shadow: 0 4px 12px rgba(0, 188, 212, 0.3);
   color: #00BCD4;
 }

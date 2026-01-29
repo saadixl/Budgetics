@@ -147,7 +147,7 @@ export default function Header(props) {
     );
   } else {
     return (
-      <Col xs={12}>
+      <Col xs={12} style={{ position: 'relative', minHeight: '60vh' }}>
         <Button
           className="login-btn"
           variant="danger"
