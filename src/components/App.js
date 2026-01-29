@@ -132,9 +132,9 @@ function App() {
   const daysRemaining = selectedBudgetType ? calculateDaysRemaining(remainingBudget, dailySpend) : null;
 
   return (
-    <Container style={{ maxWidth: '900px', margin: '0 auto', paddingTop: '20px' }}>
+    <Container style={{ maxWidth: '900px', margin: '0 auto', paddingTop: '24px', paddingBottom: '40px' }}>
       <div className="header-on-background"></div>
-      <Row>
+      <Row style={{ gap: '0' }}>
         <Header
           currentUser={currentUser}
           handleLoginClick={handleLoginClick}

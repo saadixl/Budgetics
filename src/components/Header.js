@@ -22,26 +22,19 @@ export default function Header(props) {
     const { displayName } = currentUser;
     return (
       <Col xs={12} className="header">
-        <Row>
-          <Col xs={10}>
-            <p className="welcome-back-text">
-              Welcome back
-              <br />
-              <span className="name">{displayName}</span>
-            </p>
+        <Row className="align-items-center">
+          <Col xs={10} className="header-content">
+            <div className="welcome-back-text">
+              <span className="welcome-label">Welcome back</span>
+              <h2 className="welcome-name">{displayName}</h2>
+            </div>
           </Col>
           <Col className="header-right" xs={2}>
             <Dropdown data-bs-theme="dark">
               <Dropdown.Toggle 
                 variant="success" 
                 id="dropdown-basic"
-                style={{
-                  background: 'linear-gradient(135deg, rgba(0, 188, 212, 0.25) 0%, rgba(0, 172, 193, 0.2) 100%)',
-                  border: '1px solid rgba(0, 188, 212, 0.3)',
-                  color: '#00BCD4',
-                  borderRadius: '8px',
-                  padding: '10px 14px'
-                }}
+                className="header-menu-toggle"
               >
                 <i className="fa-solid fa-bars"></i>
               </Dropdown.Toggle>

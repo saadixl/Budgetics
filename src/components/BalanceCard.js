@@ -4,7 +4,7 @@ import Form from "react-bootstrap/Form";
 import { showAlert } from "../services/utils";
 
 export default function BalanceCard(props) {
-  const { amount = 0, title, className, secondaryTitle, denominator, isDays = false } = props;
+  const { amount = 0, title, className, secondaryTitle, denominator, isDays = false, icon } = props;
   const lowBalance =
     denominator && amount / denominator <= 0.33 ? "low-balance" : "";
   
@@ -31,9 +31,9 @@ export default function BalanceCard(props) {
         <Card.Text className="small">{title}</Card.Text>
         <Card.Title className={lowBalance}>
           {prefix}{displayValue}
-          {isDays && <span style={{ fontSize: '60%', marginLeft: '4px' }}>days</span>}
+          {isDays && <span style={{ fontSize: '60%', marginLeft: '4px', fontWeight: '400' }}>days</span>}
         </Card.Title>
-        <p className="balance-card-secondary">{secondaryTitle}</p>
+        {secondaryTitle && <p className="balance-card-secondary">{secondaryTitle}</p>}
       </Card.Body>
     </Card>
   );
