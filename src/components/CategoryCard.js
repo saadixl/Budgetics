@@ -42,9 +42,6 @@ export default function CategoryCard(props) {
             <span className="category-card-value budget-value">
               ${budget.toFixed(2)}
             </span>
-            <div className="category-card-percentage">
-              {percentage.toFixed(0)}%
-            </div>
           </div>
         </div>
         <div className="category-card-progress">
