@@ -1,4 +1,4 @@
 ### Visit [budgetics.saadixl.me](https://budgetics.saadixl.me) to use the web app
 
-<img width="358" height="773" alt="Screenshot 2026-01-30 at 2 05 50 AM" src="https://github.com/user-attachments/assets/92fc6e5d-dcbf-43fa-8ded-6f4c87c44341" />
-<img width="358" height="771" alt="Screenshot 2026-01-30 at 2 06 15 AM" src="https://github.com/user-attachments/assets/fea8741e-5541-43ca-a43d-ea4b0ed95b25" />
+<img width="353" height="770" alt="Screenshot 2026-01-30 at 2 15 47 AM" src="https://github.com/user-attachments/assets/079077f4-961c-42be-a209-004c32222f70" />
+<img width="354" height="770" alt="Screenshot 2026-01-30 at 2 15 58 AM" src="https://github.com/user-attachments/assets/0eacd26d-70b4-49f2-85c5-12a81b357e95" />
