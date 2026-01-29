@@ -5,10 +5,9 @@ import Col from "react-bootstrap/Col";
 import { ToastContainer } from "react-toastify";
 import AddModal from "./AddModal";
 import Header from "./Header";
-import CategorySelector from "./CategorySelector";
 import CategoryEditor from "./CategoryEditor";
-import BalanceCard, { EditableCard } from "./BalanceCard";
-import History from "./History";
+import CategoryCard from "./CategoryCard";
+import CategoryDetailModal from "./CategoryDetailModal";
 import { AllBudgetsChart } from "./Chart";
 import {
   getCurrentMonthsBudgets,
@@ -20,7 +19,7 @@ import {
   updateBudgetTemplate,
   deleteBudget,
 } from "../services/api";
-import { showAlert, getChartData, getBudgetTitle, calculateDailySpend, calculateDaysRemaining } from "../services/utils";
+import { showAlert, getChartData } from "../services/utils";
 import { signInWithGoogle } from "../services/auth";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -34,6 +33,8 @@ function App() {
   const [currentUid, setCurrentUid] = useState();
   const [showAddModal, setShowAddModal] = useState(false);
   const [showCategoryEditorModal, setShowCategoryEditorModal] = useState(false);
+  const [showCategoryDetailModal, setShowCategoryDetailModal] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState(null);
   const [remoteBudgets, setRemoteBudgets] = useState([]);
   const [dirtyBudgetUpdate, setDirtyBudgetUpdate] = useState(Date.now());
 
@@ -89,7 +90,25 @@ function App() {
         budget: selectedBudgetType,
       });
       showAlert("New expense added");
+      setDirtyBudgetUpdate(Date.now());
     }
+  };
+
+  const handleCategoryCardClick = (category) => {
+    setSelectedCategory(category);
+    setSelectedBudgetType(category.key);
+    setShowCategoryDetailModal(true);
+  };
+
+  const handleCategoryDetailModalClose = () => {
+    setShowCategoryDetailModal(false);
+    setSelectedCategory(null);
+  };
+
+  const handleAddExpenseFromCategory = (categoryKey) => {
+    setSelectedBudgetType(categoryKey);
+    setShowCategoryDetailModal(false);
+    setShowAddModal(true);
   };
 
   const handleResetMonth = () => {
@@ -118,21 +137,10 @@ function App() {
     setShowCategoryEditorModal(true);
   };
 
-  const {
-    budget = 0,
-    current = 0,
-    history,
-  } = budgetTypes[selectedBudgetType] || {};
-
   const chartData = getChartData(budgetTypes);
-  
-  // Calculate daily spend and days remaining
-  const dailySpend = selectedBudgetType ? calculateDailySpend(history) : 0;
-  const remainingBudget = budget - current;
-  const daysRemaining = selectedBudgetType ? calculateDaysRemaining(remainingBudget, dailySpend) : null;
 
   return (
-    <Container style={{ maxWidth: '900px', margin: '0 auto', paddingTop: '24px', paddingBottom: '40px' }}>
+    <Container style={{ maxWidth: '1200px', margin: '0 auto', paddingTop: '24px', paddingBottom: '40px' }}>
       <div className="header-on-background"></div>
       <Row style={{ gap: '0' }}>
         <Header
@@ -142,19 +150,7 @@ function App() {
           handleResetMonth={handleResetMonth}
           handleArchiveMonth={handleArchiveMonth}
           handleShowBudgetEditor={handleShowBudgetEditor}
-          remoteBudgets={remoteBudgets}
-          selectedBudgetType={selectedBudgetType}
-          setSelectedBudgetType={setSelectedBudgetType}
         />
-        <button
-          onClick={() => {
-            setShowAddModal(true);
-          }}
-          className="sticky-add-btn"
-          aria-label="Add expense"
-        >
-          <i className="fa-solid fa-plus"></i>
-        </button>
         <AddModal
           show={showAddModal}
           onHide={() => {
@@ -179,54 +175,22 @@ function App() {
           deleteBudget={deleteBudget}
         />
         <ToastContainer />
-        <Col xs={12}>
-          <BalanceCard
-            className="remaining"
-            amount={budget - current}
-            denominator={budget}
-            title={`${getBudgetTitle(
-              remoteBudgets,
-              selectedBudgetType,
-            )} balance`}
-          />
-        </Col>
-        <Col xs={6}>
-          <EditableCard
-            uid={currentUid}
-            amount={budget}
-            title="Budgeted"
-            selectedBudgetType={selectedBudgetType}
-            editOperation={updateBudget}
-          />
-        </Col>
-        <Col xs={6}>
-          <EditableCard
-            uid={currentUid}
-            amount={current}
-            title="Currently spent"
-            selectedBudgetType={selectedBudgetType}
-            editOperation={updateCurrent}
-          />
-        </Col>
-        {selectedBudgetType && (
-          <>
-            <Col xs={6}>
-              <BalanceCard
-                amount={dailySpend}
-                title="Daily average spend"
-              />
-            </Col>
-            <Col xs={6}>
-              <BalanceCard
-                amount={daysRemaining !== null ? daysRemaining : 0}
-                title={daysRemaining !== null ? "Daily avg will last" : "No spending data"}
-                className={daysRemaining !== null && daysRemaining <= 7 ? "low-balance" : ""}
-                isDays={true}
-              />
-            </Col>
-          </>
-        )}
-        {selectedBudgetType ? null : (
+        {remoteBudgets && remoteBudgets.length > 0 ? (
+          <Row className="category-cards-row">
+            {remoteBudgets.map((category) => {
+              const budgetData = budgetTypes[category.key] || {};
+              return (
+                <Col key={category.key} xs={12} sm={6} md={6} lg={4} xl={3} className="mb-3">
+                  <CategoryCard
+                    category={category}
+                    budgetData={budgetData}
+                    onClick={() => handleCategoryCardClick(category)}
+                  />
+                </Col>
+              );
+            })}
+          </Row>
+        ) : (
           <Col xs={12}>
             <AllBudgetsChart
               title="Current months statistics for all budgets"
@@ -234,19 +198,19 @@ function App() {
             />
           </Col>
         )}
-        <Col xs={12}>
-          <History
-            budgetTypes={budgetTypes}
+        {selectedCategory && (
+          <CategoryDetailModal
+            show={showCategoryDetailModal}
+            onHide={handleCategoryDetailModalClose}
+            category={selectedCategory}
+            budgetData={budgetTypes[selectedCategory.key]}
             remoteBudgets={remoteBudgets}
-            uid={currentUid}
-            data={history}
-            current={current}
-            selectedBudgetType={selectedBudgetType}
-            title={`Recent ${getBudgetTitle(
-              selectedBudgetType,
-            ).toLowerCase()} history`}
+            budgetTypes={budgetTypes}
+            currentUid={currentUid}
+            setDirtyBudgetUpdate={setDirtyBudgetUpdate}
+            onAddExpense={handleAddExpenseFromCategory}
           />
-        </Col>
+        )}
       </Row>
     </Container>
   );
