@@ -5,7 +5,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { deleteHistory, moveHistory } from "../services/api";
 import { HistoryChart } from "./Chart";
-import { showAlert } from "../services/utils";
+import { showAlert, getBudgetTitle } from "../services/utils";
 import CategorySelector from "./CategorySelector";
 
 export default function History(props) {
@@ -72,60 +72,100 @@ export default function History(props) {
   let dataForChart = {},
     historyChart = null;
 
-  if (history) {
-    historyComp = Object.keys(history)
-      .reverse()
-      .map((key) => {
-        const { amount, description, timestamp } = history[key];
-        const dateObj = new Date(timestamp);
-        const theDate = dateObj.getDate();
-        const date = `${theDate}/${dateObj.getMonth()}`;
-        if (!dataForChart[theDate]) {
-          dataForChart[theDate] = {
-            date,
-            amount,
-          };
-        } else {
-          dataForChart[theDate] = {
-            date,
-            amount: dataForChart[theDate].amount + amount,
-          };
-        }
-        return (
-          <Row key={key} className="history-item-row small">
-            <Col xs={7}>
-              <p className="history-datetime">
-                {moment(timestamp).format("DD/MM/YYYY hh:mm A")}
-              </p>
-              {description}
-            </Col>
-            <Col xs={4} className="amount-col">
-              ${amount}
-            </Col>
-            <Col xs={1} className="amount-col">
-              <i
-                onClick={() => handleDeleteHistory(key, amount, current)}
-                className="fa-solid fa-xmark"
-              ></i>
-            </Col>
-            <Col xs={12} className="history-budget-type-seelctor-col">
-              <CategorySelector
-                onChange={(newBudgetType) => {
-                  handleHistoryMove({
-                    key,
-                    amount,
-                    current,
-                    newBudgetType,
-                    description,
-                  });
-                }}
-                remoteBudgets={remoteBudgets}
-                selectedBudgetType={selectedBudgetType}
-              />
-            </Col>
-          </Row>
-        );
+  // Group transactions by date
+  const groupTransactionsByDate = (historyData) => {
+    if (!historyData) return {};
+    
+    const grouped = {};
+    const today = moment().startOf('day');
+    const yesterday = moment().subtract(1, 'days').startOf('day');
+    
+    Object.keys(historyData).reverse().forEach((key) => {
+      const { amount, description, timestamp } = historyData[key];
+      const dateObj = moment(timestamp);
+      const dateKey = dateObj.startOf('day');
+      
+      let dateLabel;
+      if (dateKey.isSame(today, 'day')) {
+        dateLabel = 'Today';
+      } else if (dateKey.isSame(yesterday, 'day')) {
+        dateLabel = 'Yesterday';
+      } else {
+        dateLabel = dateObj.format('DD MMM YYYY');
+      }
+      
+      if (!grouped[dateLabel]) {
+        grouped[dateLabel] = [];
+      }
+      
+      grouped[dateLabel].push({
+        key,
+        amount,
+        description,
+        timestamp,
+        dateObj,
       });
+      
+      // For chart data
+      const theDate = dateObj.date();
+      const date = `${theDate}/${dateObj.month()}`;
+      if (!dataForChart[theDate]) {
+        dataForChart[theDate] = {
+          date,
+          amount,
+        };
+      } else {
+        dataForChart[theDate] = {
+          date,
+          amount: dataForChart[theDate].amount + amount,
+        };
+      }
+    });
+    
+    return grouped;
+  };
+
+  if (history) {
+    const groupedHistory = groupTransactionsByDate(history);
+    
+    historyComp = Object.keys(groupedHistory).map((dateLabel) => (
+      <div key={dateLabel} className="history-date-group">
+        <h3 className="history-date-header">{dateLabel}</h3>
+        <div className="history-date-transactions">
+          {groupedHistory[dateLabel].map(({ key, amount, description, timestamp, dateObj }) => {
+            const categoryTitle = getBudgetTitle(remoteBudgets, selectedBudgetType);
+            return (
+              <div key={key} className="history-transaction-item">
+                <div className="history-transaction-icon">
+                  <i className="fa-solid fa-receipt"></i>
+                </div>
+                <div className="history-transaction-content">
+                  <div className="history-transaction-name">{description || 'Unknown expense'}</div>
+                  <div className="history-transaction-datetime">
+                    {dateObj.format('DD MMM YYYY, hh:mm A')}
+                  </div>
+                  {categoryTitle && categoryTitle !== 'Unknown' && (
+                    <span className="history-transaction-category">
+                      {categoryTitle}
+                    </span>
+                  )}
+                </div>
+                <div className="history-transaction-right">
+                  <span className="history-transaction-amount">${amount.toFixed(2)}</span>
+                  <button
+                    className="history-delete-btn"
+                    onClick={() => handleDeleteHistory(key, amount, current)}
+                    aria-label="Delete transaction"
+                  >
+                    <i className="fa-solid fa-xmark"></i>
+                  </button>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    ));
 
     const labels = [],
       data1 = [];
@@ -145,10 +185,12 @@ export default function History(props) {
   return (
     <>
       {historyChart}
-      <Card data-bs-theme="dark">
+      <Card data-bs-theme="dark" className="history-card">
         <Card.Body>
           <Card.Title className="history-header">{title}</Card.Title>
-          {historyComp}
+          <div className="history-list">
+            {historyComp}
+          </div>
         </Card.Body>
       </Card>
     </>

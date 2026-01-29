@@ -188,7 +188,7 @@ body {
   min-height: 100px;
   background: transparent !important;
   border: none !important;
-  text-align: center;
+  text-align: left;
   box-shadow: none !important;
   padding: 0;
 }
@@ -229,7 +229,8 @@ body {
 }
 
 .balance-card.remaining .card-body {
-  padding: 0 10px;
+  padding: 0;
+  text-align: left;
 }
 
 .balance-card.remaining .card-title {
@@ -439,58 +440,147 @@ body {
   vertical-align: baseline;
 }
 
-.history-item-row {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  padding: 20px 0;
-  font-size: 16px;
-  transition: all 0.3s ease;
-  position: relative;
-  margin: 0;
-  border-radius: 12px;
-  margin-bottom: 4px;
+/* History Card */
+.history-card {
+  margin-bottom: 0;
 }
 
-.history-item-row::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background: linear-gradient(to right, transparent 0%, rgba(255, 255, 255, 0.1) 20%, rgba(255, 255, 255, 0.1) 80%, transparent 100%);
-  pointer-events: none;
-  z-index: 1;
-}
-
-.history-item-row:hover {
-  background: linear-gradient(135deg, rgba(0, 188, 212, 0.05) 0%, rgba(0, 172, 193, 0.03) 100%);
-  padding-left: 16px;
-  padding-right: 16px;
-  padding-top: 20px;
-  padding-bottom: 20px;
-  border-radius: 12px;
-  transform: translateX(4px);
-  border-color: rgba(0, 188, 212, 0.2);
-}
-
-.amount-col {
-  text-align: right;
-  margin-top: 0;
-  color: #00BCD4;
-  font-weight: 700;
-  font-size: 17px;
+.history-list {
   display: flex;
-  align-items: center;
-  justify-content: flex-end;
+  flex-direction: column;
+  gap: 0;
+}
+
+.history-date-group {
+  margin-bottom: 32px;
+}
+
+.history-date-group:last-child {
+  margin-bottom: 0;
+}
+
+.history-date-header {
+  font-size: 16px;
+  font-weight: 700;
+  color: #fff;
+  margin: 0 0 16px 0;
+  padding: 0;
+  letter-spacing: -0.3px;
+  text-transform: capitalize;
+}
+
+.history-date-transactions {
+  display: flex;
+  flex-direction: column;
   gap: 8px;
 }
 
-.history-item-row:last-child {
-  border-bottom: none;
+.history-transaction-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 12px;
+  transition: all 0.2s ease;
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-.history-item-row:last-child::after {
-  display: none;
+.history-transaction-item:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.history-transaction-icon {
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, rgba(0, 188, 212, 0.25) 0%, rgba(0, 172, 193, 0.2) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #00BCD4;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.history-transaction-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.history-transaction-name {
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+  margin: 0;
+  line-height: 1.3;
+}
+
+.history-transaction-datetime {
+  font-size: 14px;
+  color: #b0b0b0;
+  font-weight: 400;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.history-transaction-category {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 500;
+  color: #00BCD4;
+  background: rgba(0, 188, 212, 0.15);
+  padding: 4px 10px;
+  border-radius: 6px;
+  margin-top: 4px;
+  width: fit-content;
+  border: 1px solid rgba(0, 188, 212, 0.2);
+}
+
+.history-transaction-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.history-transaction-amount {
+  font-size: 16px;
+  font-weight: 700;
+  color: #00BCD4;
+  white-space: nowrap;
+}
+
+.history-delete-btn {
+  background: #DC4C64;
+  border: none;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  padding: 0;
+  margin: 0;
+  flex-shrink: 0;
+}
+
+.history-delete-btn:hover {
+  background: #FF5722;
+  transform: scale(1.1);
+}
+
+.history-delete-btn i {
+  font-size: 12px;
 }
 
 .history-header {
@@ -501,36 +591,6 @@ body {
   letter-spacing: -0.3px;
   padding-bottom: 16px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.history-datetime {
-  margin-bottom: 8px;
-  font-size: 12px;
-  color: #666;
-  font-weight: 500;
-  letter-spacing: 0.3px;
-}
-
-.history-item-row p {
-  margin-bottom: 4px;
-  color: #fff;
-  font-weight: 500;
-  font-size: 15px;
-}
-
-.history-budget-type-seelctor-col {
-  margin-top: 12px;
-  padding-top: 12px;
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-.history-budget-type-seelctor-col .budget-type-selector {
-  font-size: 12px;
-  padding: 6px 12px;
-  background: rgba(0, 188, 212, 0.1) !important;
-  border: 1px solid rgba(0, 188, 212, 0.2) !important;
-  color: #00BCD4 !important;
-  border-radius: 6px;
 }
 
 .history-budget-type-seelctor-col .budget-type-selector {
@@ -715,44 +775,40 @@ body {
   box-shadow: 0 8px 24px rgba(0, 188, 212, 0.25), 0 0 0 1px rgba(0, 188, 212, 0.1);
 }
 
-.history-item-row i {
-  color: #DC4C64;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  padding: 8px;
-  border-radius: 8px;
-  width: 32px;
-  height: 32px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(220, 76, 100, 0.1);
-  font-size: 14px;
-}
 
-.history-item-row i:hover {
-  background: rgba(220, 76, 100, 0.2);
-  color: #FF5722;
-  transform: scale(1.15) rotate(90deg);
-  box-shadow: 0 2px 8px rgba(220, 76, 100, 0.3);
-}
-
-/* Mobile spacing for cross button */
+/* Mobile responsive for history */
 @media (max-width: 768px) {
-  .history-item-row .amount-col {
-    display: flex;
-    align-items: center;
+  .history-transaction-item {
+    padding: 14px;
+    gap: 12px;
   }
-  
-  .history-item-row .amount-col:last-of-type {
-    margin-left: 16px;
-    padding-left: 16px;
-    justify-content: center;
+
+  .history-transaction-icon {
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    font-size: 16px;
   }
-  
-  .history-item-row .amount-col:not(:last-of-type) {
-    padding-right: 12px;
-    justify-content: flex-end;
+
+  .history-transaction-name {
+    font-size: 15px;
+  }
+
+  .history-transaction-amount {
+    font-size: 15px;
+  }
+
+  .history-transaction-datetime {
+    font-size: 13px;
+  }
+
+  .history-transaction-right {
+    gap: 8px;
+  }
+
+  .history-delete-btn {
+    width: 26px;
+    height: 26px;
   }
 }
 
