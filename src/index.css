@@ -85,17 +85,40 @@ body {
 }
 
 .form-select {
-  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
   outline: none !important;
   background: rgba(34, 34, 34, 0.6) !important;
   color: #fff !important;
   transition: all 0.3s ease !important;
+  border-radius: 12px !important;
+  padding: 12px 16px !important;
 }
 
 .form-select:focus {
   border-color: rgba(0, 188, 212, 0.5) !important;
   background: rgba(34, 34, 34, 0.8) !important;
-  box-shadow: 0 0 0 3px rgba(0, 188, 212, 0.1) !important;
+  box-shadow: 0 0 0 3px rgba(0, 188, 212, 0.15) !important;
+}
+
+.form-control {
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  outline: none !important;
+  background: rgba(34, 34, 34, 0.6) !important;
+  color: #fff !important;
+  transition: all 0.3s ease !important;
+  border-radius: 12px !important;
+  padding: 12px 16px !important;
+}
+
+.form-control:focus {
+  border-color: rgba(0, 188, 212, 0.5) !important;
+  background: rgba(34, 34, 34, 0.8) !important;
+  box-shadow: 0 0 0 3px rgba(0, 188, 212, 0.15) !important;
+  color: #fff !important;
+}
+
+.form-control::placeholder {
+  color: rgba(255, 255, 255, 0.4) !important;
 }
 
 .balance-card {
@@ -165,7 +188,7 @@ body {
 .balance-card .card-title {
   font-size: 32px;
   font-weight: 800;
-  color: #fff;
+  color: #2196F3;
   letter-spacing: -0.8px;
   margin-bottom: 0;
   line-height: 1.1;
@@ -180,7 +203,7 @@ body {
 
 .balance-card .card-text {
   font-size: 12px;
-  color: #666;
+  color: #aaa;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 1.5px;
@@ -226,7 +249,7 @@ body {
   margin-left: 2px;
   margin-bottom: 12px;
   display: block;
-  color: #666;
+  color: #aaa;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 1.5px;
@@ -240,14 +263,14 @@ body {
 .balance-card.remaining .card-title {
   font-size: 64px;
   margin-bottom: 0;
-  background: linear-gradient(135deg, #00BCD4 0%, #00ACC1 100%);
+  background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   font-weight: 800;
   letter-spacing: -2px;
   line-height: 1;
-  text-shadow: 0 0 30px rgba(0, 188, 212, 0.3);
+  text-shadow: 0 0 30px rgba(76, 175, 80, 0.3);
 }
 
 .balance-card.remaining .card-text {
@@ -256,7 +279,7 @@ body {
   margin-top: 8px;
   letter-spacing: 2px;
   font-weight: 500;
-  color: #888;
+  color: #aaa;
   text-transform: uppercase;
 }
 
@@ -371,7 +394,7 @@ body {
 .welcome-label {
   font-size: 13px;
   letter-spacing: 1.5px;
-  color: #888;
+  color: #aaa;
   font-weight: 500;
   text-transform: uppercase;
   margin: 0;
@@ -383,6 +406,10 @@ body {
   color: #fff;
   margin: 0;
   letter-spacing: -0.5px;
+  background: linear-gradient(135deg, #fff 0%, rgba(0, 188, 212, 0.8) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
   line-height: 1.2;
   background: linear-gradient(135deg, #fff 0%, rgba(0, 188, 212, 0.8) 100%);
   -webkit-background-clip: text;
@@ -431,22 +458,76 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, rgba(0, 188, 212, 0.2) 0%, rgba(0, 172, 193, 0.15) 100%);
   border-radius: 8px;
   margin-bottom: 2px;
-  color: #00BCD4;
   font-size: 14px;
-  border: 1px solid rgba(0, 188, 212, 0.2);
+  transition: all 0.3s ease;
 }
 
-.header-budget-icon-left {
-  background: linear-gradient(135deg, rgba(0, 188, 212, 0.25) 0%, rgba(0, 172, 193, 0.2) 100%);
-  border-color: rgba(0, 188, 212, 0.3);
+/* Wallet icon - Blue */
+.header-budget-icon .fa-wallet {
+  color: #2196F3;
 }
+
+.header-budget-icon:has(.fa-wallet) {
+  background: linear-gradient(135deg, rgba(33, 150, 243, 0.25) 0%, rgba(25, 118, 210, 0.2) 100%);
+  border: 1px solid rgba(33, 150, 243, 0.3);
+}
+
+/* Piggy bank icon - Green */
+.header-budget-icon .fa-piggy-bank {
+  color: #4CAF50;
+}
+
+.header-budget-icon:has(.fa-piggy-bank) {
+  background: linear-gradient(135deg, rgba(76, 175, 80, 0.25) 0%, rgba(56, 142, 60, 0.2) 100%);
+  border: 1px solid rgba(76, 175, 80, 0.3);
+}
+
+/* Chart line icon - Orange */
+.header-budget-icon .fa-chart-line {
+  color: #FF9800;
+}
+
+.header-budget-icon:has(.fa-chart-line) {
+  background: linear-gradient(135deg, rgba(255, 152, 0, 0.25) 0%, rgba(245, 124, 0, 0.2) 100%);
+  border: 1px solid rgba(255, 152, 0, 0.3);
+}
+
+/* Chart pie icon - Purple */
+.header-budget-icon .fa-chart-pie {
+  color: #9C27B0;
+}
+
+.header-budget-icon:has(.fa-chart-pie) {
+  background: linear-gradient(135deg, rgba(156, 39, 176, 0.25) 0%, rgba(123, 31, 162, 0.2) 100%);
+  border: 1px solid rgba(156, 39, 176, 0.3);
+}
+
+/* Fire icon - Red */
+.header-budget-icon .fa-fire {
+  color: #F44336;
+}
+
+.header-budget-icon:has(.fa-fire) {
+  background: linear-gradient(135deg, rgba(244, 67, 54, 0.25) 0%, rgba(211, 47, 47, 0.2) 100%);
+  border: 1px solid rgba(244, 67, 54, 0.3);
+}
+
+/* Calendar icon - Cyan */
+.header-budget-icon .fa-calendar-days {
+  color: #00BCD4;
+}
+
+.header-budget-icon:has(.fa-calendar-days) {
+  background: linear-gradient(135deg, rgba(0, 188, 212, 0.25) 0%, rgba(0, 172, 193, 0.2) 100%);
+  border: 1px solid rgba(0, 188, 212, 0.3);
+}
+
 
 .header-budget-label {
   font-size: 9px;
-  color: #888;
+  color: #aaa;
   text-transform: uppercase;
   letter-spacing: 1px;
   font-weight: 600;
@@ -458,26 +539,26 @@ body {
 .header-budget-value {
   font-size: 20px;
   font-weight: 700;
-  color: #fff;
+  color: #2196F3;
   line-height: 1.2;
   letter-spacing: -0.5px;
   word-break: break-word;
 }
 
 .header-budget-value-left {
-  color: #00BCD4;
+  color: #4CAF50;
 }
 
 .header-budget-percentage {
   font-size: 18px;
   font-weight: 700;
-  color: #aaa;
+  color: #FF9800;
   line-height: 1.2;
   letter-spacing: -0.3px;
 }
 
 .header-budget-percentage-left {
-  color: #00BCD4;
+  color: #4CAF50;
 }
 
 .signout-out-icon {
@@ -690,6 +771,10 @@ body {
   color: #fff;
   margin-bottom: 8px;
   letter-spacing: -0.5px;
+  background: linear-gradient(135deg, #fff 0%, rgba(0, 188, 212, 0.6) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .category-card-amounts {
@@ -710,7 +795,7 @@ body {
 
 .category-card-label {
   font-size: 11px;
-  color: #888;
+  color: #aaa;
   text-transform: uppercase;
   letter-spacing: 1px;
   font-weight: 600;
@@ -726,15 +811,15 @@ body {
 }
 
 .category-card-value.spent-value {
-  color: #00BCD4;
+  color: #FF9800;
 }
 
 .category-card-value.budget-value {
-  color: #aaa;
+  color: #2196F3;
 }
 
 .category-card-value.remaining-value {
-  color: #00BCD4;
+  color: #4CAF50;
 }
 
 
@@ -742,17 +827,18 @@ body {
 
 /* Category Detail Modal */
 .category-detail-modal .modal-content {
-  background: linear-gradient(135deg, rgba(20, 20, 20, 0.98) 0%, rgba(30, 30, 30, 0.98) 100%) !important;
-  backdrop-filter: blur(30px);
-  border: 1px solid rgba(255, 255, 255, 0.1) !important;
-  border-radius: 20px !important;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  background: linear-gradient(135deg, rgba(34, 34, 34, 0.95) 0%, rgba(45, 45, 45, 0.95) 100%) !important;
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 16px !important;
+  box-shadow: 0 8px 24px rgba(0, 188, 212, 0.25), 0 0 0 1px rgba(0, 188, 212, 0.1) !important;
+  animation: modalSlideIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .category-modal-header {
   background: transparent !important;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
-  padding: 24px 32px !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+  padding: 20px 24px !important;
 }
 
 .category-modal-header .modal-title {
@@ -765,20 +851,59 @@ body {
   background-clip: text;
 }
 
-.category-modal-header .btn-close {
-  filter: invert(1);
-  opacity: 0.7;
-  transition: opacity 0.2s ease;
+.modal-backdrop {
+  background-color: rgba(0, 0, 0, 0.75) !important;
+  backdrop-filter: blur(4px);
 }
 
-.category-modal-header .btn-close:hover {
-  opacity: 1;
+.modal-header .btn-close {
+  filter: none !important;
+  opacity: 0.8 !important;
+  transition: all 0.2s ease;
+  background: rgba(255, 255, 255, 0.1) !important;
+  border-radius: 8px;
+  padding: 0 !important;
+  width: 32px !important;
+  height: 32px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  position: relative;
+  font-size: 0 !important;
+}
+
+.modal-header .btn-close::before {
+  content: '\f00d';
+  font-family: 'Font Awesome 6 Free';
+  font-weight: 900;
+  font-size: 16px;
+  color: #fff;
+  line-height: 1;
+  display: block;
+}
+
+.modal-header .btn-close span,
+.modal-header .btn-close .visually-hidden {
+  display: none !important;
+}
+
+.modal-header .btn-close:hover {
+  opacity: 1 !important;
+  background: rgba(255, 255, 255, 0.2) !important;
+  border-color: rgba(255, 255, 255, 0.3) !important;
+  transform: rotate(90deg);
+}
+
+.modal-header .btn-close:focus {
+  box-shadow: 0 0 0 3px rgba(0, 188, 212, 0.25) !important;
 }
 
 .category-modal-body {
-  padding: 24px 32px 32px 32px !important;
+  padding: 24px !important;
   max-height: calc(100vh - 200px);
   overflow-y: auto;
+  background: transparent !important;
 }
 
 .category-modal-body::-webkit-scrollbar {
@@ -801,8 +926,8 @@ body {
 
 .category-modal-footer {
   background: transparent !important;
-  border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
-  padding: 20px 32px !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+  padding: 20px 24px !important;
   display: flex;
   justify-content: flex-end;
 }
@@ -830,6 +955,35 @@ body {
 
 .category-add-expense-btn i {
   font-size: 16px;
+}
+
+.modal-footer .btn-secondary {
+  background: rgba(255, 255, 255, 0.05) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  color: #aaa !important;
+  transition: all 0.3s ease !important;
+}
+
+.modal-footer .btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.1) !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
+  color: #fff !important;
+  transform: translateY(-1px);
+}
+
+.modal-footer .btn-primary,
+.modal-footer .btn-success {
+  background: linear-gradient(135deg, rgba(0, 188, 212, 0.25) 0%, rgba(0, 172, 193, 0.2) 100%) !important;
+  border: 1px solid rgba(0, 188, 212, 0.3) !important;
+  color: #00BCD4 !important;
+  transition: all 0.3s ease !important;
+}
+
+.modal-footer .btn-primary:hover,
+.modal-footer .btn-success:hover {
+  background: linear-gradient(135deg, rgba(0, 188, 212, 0.35) 0%, rgba(0, 172, 193, 0.3) 100%) !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 188, 212, 0.3) !important;
 }
 
 .history-list {
@@ -921,13 +1075,13 @@ body {
   display: inline-block;
   font-size: 12px;
   font-weight: 500;
-  color: #00BCD4;
-  background: rgba(0, 188, 212, 0.15);
+  color: #2196F3;
+  background: rgba(33, 150, 243, 0.15);
   padding: 4px 10px;
   border-radius: 6px;
   margin-top: 4px;
   width: fit-content;
-  border: 1px solid rgba(0, 188, 212, 0.2);
+  border: 1px solid rgba(33, 150, 243, 0.2);
 }
 
 .history-transaction-right {
@@ -940,7 +1094,7 @@ body {
 .history-transaction-amount {
   font-size: 16px;
   font-weight: 700;
-  color: #00BCD4;
+  color: #F44336;
   white-space: nowrap;
 }
 
@@ -995,11 +1149,11 @@ body {
 
 
 .add-modal .modal-content {
-  background: linear-gradient(135deg, rgba(26, 26, 26, 0.98) 0%, rgba(45, 45, 45, 0.98) 100%);
-  backdrop-filter: blur(30px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 20px;
-  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.9), 0 0 0 1px rgba(0, 188, 212, 0.1);
+  background: linear-gradient(135deg, rgba(34, 34, 34, 0.95) 0%, rgba(45, 45, 45, 0.95) 100%) !important;
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 16px !important;
+  box-shadow: 0 8px 24px rgba(0, 188, 212, 0.25), 0 0 0 1px rgba(0, 188, 212, 0.1) !important;
   animation: modalSlideIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -1015,26 +1169,32 @@ body {
 }
 
 .add-modal .modal-header {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  padding: 24px 28px;
-  background: linear-gradient(135deg, rgba(0, 188, 212, 0.05) 0%, rgba(0, 172, 193, 0.03) 100%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+  padding: 20px 24px !important;
+  background: transparent !important;
 }
 
 .add-modal .modal-body {
-  padding: 28px;
+  padding: 24px !important;
+  background: transparent !important;
 }
 
 .add-modal .modal-footer {
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-  padding: 20px 28px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+  padding: 20px 24px !important;
   gap: 12px;
+  background: transparent !important;
 }
 
 .add-modal-title {
-  font-size: 20px;
-  font-weight: 600;
+  font-size: 22px;
+  font-weight: 700;
   color: #fff;
-  letter-spacing: -0.3px;
+  letter-spacing: -0.5px;
+  background: linear-gradient(135deg, #fff 0%, rgba(0, 188, 212, 0.8) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .category-dropdown-label {
@@ -1273,7 +1433,27 @@ body {
   .add-modal .modal-header,
   .add-modal .modal-body,
   .add-modal .modal-footer {
-    padding: 20px;
+    padding: 16px !important;
+  }
+
+  .category-modal-header {
+    padding: 16px !important;
+  }
+
+  .category-modal-body {
+    padding: 16px !important;
+  }
+
+  .category-modal-footer {
+    padding: 16px !important;
+  }
+
+  .add-modal-title {
+    font-size: 18px;
+  }
+
+  .category-modal-header .modal-title {
+    font-size: 20px;
   }
 
   .category-card {
