@@ -111,30 +111,44 @@ export default function Header(props) {
           <div className="header-budget-summary">
             <div className="header-budget-row">
               <div className="header-budget-stat">
+                <div className="header-budget-icon">
+                  <i className="fa-solid fa-wallet"></i>
+                </div>
                 <div className="header-budget-label">Total Budgeted</div>
                 <div className="header-budget-value">${totalBudgeted.toFixed(2)}</div>
               </div>
               <div className="header-budget-stat">
+                <div className="header-budget-icon header-budget-icon-left">
+                  <i className="fa-solid fa-piggy-bank"></i>
+                </div>
                 <div className="header-budget-label">Total Left</div>
                 <div className="header-budget-value header-budget-value-left">${totalLeft.toFixed(2)}</div>
               </div>
-            </div>
-            <div className="header-budget-row">
               <div className="header-budget-stat">
+                <div className="header-budget-icon">
+                  <i className="fa-solid fa-chart-line"></i>
+                </div>
                 <div className="header-budget-label">Spent</div>
                 <div className="header-budget-percentage">{percentageSpent.toFixed(1)}%</div>
               </div>
               <div className="header-budget-stat">
+                <div className="header-budget-icon header-budget-icon-left">
+                  <i className="fa-solid fa-chart-pie"></i>
+                </div>
                 <div className="header-budget-label">Left</div>
                 <div className="header-budget-percentage header-budget-percentage-left">{percentageLeft.toFixed(1)}%</div>
               </div>
-            </div>
-            <div className="header-budget-row">
               <div className="header-budget-stat">
+                <div className="header-budget-icon">
+                  <i className="fa-solid fa-fire"></i>
+                </div>
                 <div className="header-budget-label">Daily Average</div>
                 <div className="header-budget-value">${dailyAverageSpend.toFixed(2)}</div>
               </div>
               <div className="header-budget-stat">
+                <div className="header-budget-icon header-budget-icon-left">
+                  <i className="fa-solid fa-calendar-days"></i>
+                </div>
                 <div className="header-budget-label">Will Last</div>
                 <div className="header-budget-value header-budget-value-left">
                   {daysRemaining !== null ? `${daysRemaining} days` : 'N/A'}
