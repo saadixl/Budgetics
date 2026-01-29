@@ -3,6 +3,7 @@ import Dropdown from "react-bootstrap/Dropdown";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { signOut } from "../services/auth";
+import { calculateDailySpend, calculateDaysRemaining } from "../services/utils";
 
 export default function Header(props) {
   const {
@@ -12,7 +13,53 @@ export default function Header(props) {
     handleResetMonth,
     handleArchiveMonth,
     handleShowBudgetEditor,
+    budgetTypes,
   } = props;
+
+  // Calculate totals
+  let totalBudgeted = 0;
+  let totalSpent = 0;
+  let totalLeft = 0;
+  let percentageSpent = 0;
+  let percentageLeft = 0;
+  let dailyAverageSpend = 0;
+  let daysRemaining = null;
+
+  if (budgetTypes && Object.keys(budgetTypes).length > 0) {
+    // Combine all history from all categories
+    const allHistory = {};
+    let historyIndex = 0;
+    
+    Object.keys(budgetTypes).forEach((key) => {
+      const { budget = 0, current = 0, history = {} } = budgetTypes[key];
+      totalBudgeted += budget;
+      totalSpent += current;
+      
+      // Merge history entries from this category
+      if (history && typeof history === 'object' && Object.keys(history).length > 0) {
+        Object.keys(history).forEach((historyKey) => {
+          const historyEntry = history[historyKey];
+          if (historyEntry && historyEntry.timestamp) {
+            // Use unique key to avoid collisions
+            allHistory[`cat_${key}_idx_${historyIndex++}`] = historyEntry;
+          }
+        });
+      }
+    });
+    
+    totalLeft = totalBudgeted - totalSpent;
+    if (totalBudgeted > 0) {
+      percentageSpent = (totalSpent / totalBudgeted) * 100;
+      percentageLeft = (totalLeft / totalBudgeted) * 100;
+    }
+    
+    // Calculate daily average spend from all categories combined
+    if (Object.keys(allHistory).length > 0) {
+      dailyAverageSpend = calculateDailySpend(allHistory);
+      // Calculate days remaining
+      daysRemaining = calculateDaysRemaining(totalLeft, dailyAverageSpend);
+    }
+  }
 
   const handleSignoutClick = () => {
     signOut(cleanUpOldData);
@@ -60,6 +107,42 @@ export default function Header(props) {
             </Dropdown>
           </Col>
         </Row>
+        {budgetTypes && Object.keys(budgetTypes).length > 0 && (
+          <div className="header-budget-summary">
+            <div className="header-budget-row">
+              <div className="header-budget-stat">
+                <div className="header-budget-label">Total Budgeted</div>
+                <div className="header-budget-value">${totalBudgeted.toFixed(2)}</div>
+              </div>
+              <div className="header-budget-stat">
+                <div className="header-budget-label">Total Left</div>
+                <div className="header-budget-value header-budget-value-left">${totalLeft.toFixed(2)}</div>
+              </div>
+            </div>
+            <div className="header-budget-row">
+              <div className="header-budget-stat">
+                <div className="header-budget-label">Spent</div>
+                <div className="header-budget-percentage">{percentageSpent.toFixed(1)}%</div>
+              </div>
+              <div className="header-budget-stat">
+                <div className="header-budget-label">Left</div>
+                <div className="header-budget-percentage header-budget-percentage-left">{percentageLeft.toFixed(1)}%</div>
+              </div>
+            </div>
+            <div className="header-budget-row">
+              <div className="header-budget-stat">
+                <div className="header-budget-label">Daily Average</div>
+                <div className="header-budget-value">${dailyAverageSpend.toFixed(2)}</div>
+              </div>
+              <div className="header-budget-stat">
+                <div className="header-budget-label">Will Last</div>
+                <div className="header-budget-value header-budget-value-left">
+                  {daysRemaining !== null ? `${daysRemaining} days` : 'N/A'}
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </Col>
     );
   } else {

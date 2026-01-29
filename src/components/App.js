@@ -140,8 +140,7 @@ function App() {
   const chartData = getChartData(budgetTypes);
 
   return (
-    <Container style={{ maxWidth: '1200px', margin: '0 auto', paddingTop: '24px', paddingBottom: '40px' }}>
-      <div className="header-on-background"></div>
+    <Container style={{ maxWidth: '1200px', margin: '0 auto', paddingTop: '24px', paddingBottom: '40px', position: 'relative' }}>
       <Row style={{ gap: '0' }}>
         <Header
           currentUser={currentUser}
@@ -150,6 +149,7 @@ function App() {
           handleResetMonth={handleResetMonth}
           handleArchiveMonth={handleArchiveMonth}
           handleShowBudgetEditor={handleShowBudgetEditor}
+          budgetTypes={budgetTypes}
         />
         <AddModal
           show={showAddModal}
