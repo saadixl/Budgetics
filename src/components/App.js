@@ -198,6 +198,15 @@ function App() {
             />
           </Col>
         )}
+        {currentUser && currentUid && remoteBudgets && remoteBudgets.length > 0 && (
+          <button
+            className="fab-add-expense"
+            onClick={() => setShowAddModal(true)}
+            aria-label="Add expense"
+          >
+            <i className="fa-solid fa-plus"></i>
+          </button>
+        )}
         {selectedCategory && (
           <CategoryDetailModal
             show={showCategoryDetailModal}

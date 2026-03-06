@@ -161,22 +161,37 @@ export default function Header(props) {
     );
   } else {
     return (
-      <Col xs={12} style={{ position: 'relative', minHeight: '60vh' }}>
-        <Button
-          className="login-btn"
-          variant="danger"
-          size="lg"
-          onClick={handleLoginClick}
-          style={{
-            background: 'linear-gradient(135deg, rgba(0, 188, 212, 0.25) 0%, rgba(0, 172, 193, 0.2) 100%)',
-            border: '1px solid rgba(0, 188, 212, 0.3)',
-            color: '#00BCD4',
-            boxShadow: '0 2px 8px rgba(0, 188, 212, 0.15)'
-          }}
-        >
-          <i className="fa-brands fa-google" style={{ marginRight: '8px' }}></i>
-          Login with Google
-        </Button>
+      <Col xs={12}>
+        <div className="login-hero">
+          <div className="login-hero-glow"></div>
+          <div className="login-hero-icon">
+            <i className="fa-solid fa-wallet"></i>
+          </div>
+          <h1 className="login-hero-title">Budgetics</h1>
+          <p className="login-hero-subtitle">Smart budgeting, simplified</p>
+          <Button
+            className="login-hero-btn"
+            size="lg"
+            onClick={handleLoginClick}
+          >
+            <i className="fa-brands fa-google"></i>
+            Continue with Google
+          </Button>
+          <div className="login-hero-features">
+            <div className="login-hero-feature">
+              <i className="fa-solid fa-chart-pie"></i>
+              <span>Track spending</span>
+            </div>
+            <div className="login-hero-feature">
+              <i className="fa-solid fa-bullseye"></i>
+              <span>Set budgets</span>
+            </div>
+            <div className="login-hero-feature">
+              <i className="fa-solid fa-bolt"></i>
+              <span>Stay on track</span>
+            </div>
+          </div>
+        </div>
       </Col>
     );
   }
